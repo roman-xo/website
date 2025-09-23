@@ -355,3 +355,78 @@ html {
   height: 1px;
   background: #444; /* dark gray */
 }
+
+/* --- Mobile Optimization --- */
+@media (max-width: 768px) {
+
+  body {
+    font-size: 1rem;   /* slightly smaller text */
+    line-height: 1.6;  /* tighter spacing */
+    padding: 0 0.5rem; /* reduce body side padding */
+  }
+
+  h1 {
+    font-size: 1.8rem; 
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 0.8rem;  /* less side padding */
+  }
+
+  .brand-column {
+    padding-left: 1rem; /* reduce side padding */
+    align-items: center;
+  }
+
+  .home-link {
+    font-size: 1.6rem;
+  }
+
+  .back-button {
+    font-size: 1.1rem;
+  }
+
+  /* Handle flex layouts (text+image side by side) */
+  div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  div[style*="flex: 0 0 350px"],
+  div[style*="flex: 0 0 30%"] {
+    flex: unset !important;
+    width: 100% !important;
+    margin-top: 1rem !important;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .toc {
+    position: static; /* already partly handled */
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .layout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .caption {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
