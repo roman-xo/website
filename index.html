@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>ROMAN TODD</title> 
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<style>
+body {
+    background-image: url('./assets/static/bg2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    top: 0;
+    left: 0;
+    width: 99%;
+    height: 97%;
+    position: absolute;
+    display: table;
+    color: white;
+}
+
+p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    transform: translateY(-20px);
+}
+
+#timezone * {
+    text-decoration: none;
+    color: white;
+}
+
+#time {
+    color: white;
+}
+
+#nav {
+    position: absolute;
+    right: 25px;
+    top: 52%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    font-family: 'Geist Mono', monospace;
+}
+
+#nav a {
+    text-decoration: underline;
+    font-size: 26px;
+    font-weight: bold;
+    color: #B38AFF;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    width: 150px;
+}
+
+#nav a:hover::before {
+    content: ">> ";
+    position: absolute;
+    left: -20px;
+    color: #B38AFF;
+}
+
+#nav a:hover::after {
+    content: " <<";
+    position: absolute;
+    right: -20px;
+    color: #B38AFF;
+}
+
+.github-icon a:hover::before,
+.github-icon a:hover::after {
+    content: none !important;
+}
+
+.github-icon {
+    margin-top: 20px;
+}
+.github-icon img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease-in-out;
+}
+.github-icon img:hover {
+    transform: scale(1.1);
+}
+</style>
+
+<script type="text/javascript">
+
+let options = {
+    timeZone: 'US/Central',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+},
+formatter = new Intl.DateTimeFormat([], options);
+
+// set time
+setInterval(
+    () => {
+        document.querySelector("#time").innerText = formatter.format(new Date());
+    }
+, 1000)
+</script>
+</head>
+
+<body>
+
+<p>
+    <font size="7"><i><b>ROMAN TODD</b></i></font> <br><br>
+    <img src="https://i.imgur.com/MVP3iZv.jpeg" style="width:500px;">
+    <br><br>
+    <span id="timezone">
+        <i>
+            <a href="https://24timezones.com/world_directory/current_tulsa_time.php">TIME IN TULSA, OK</a> - 
+            <span id="time">0:00 PM</span> 
+            <a href="https://24timezones.com/time-zone/ct">CDT</a>
+        </i>
+    </span>
+</p>
+
+<div id="nav">
+    <a href="/res/cv_roman.pdf">resume</a>
+    <a href="/blog">blog</a>
+    <a href="contact" onclick="openContactPopup()">contact</a>
+
+<div class="github-icon">
+        <a href="https://github.com/roman-xo" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">
+        </a>
+    </div>
+</div>
+
+<script>NekoType="white"</script>
+<h1 id=nl><script src="https://webneko.net/n20171213.js"></script><a 
+href="https://webneko.net">Neko</a></h1>
+
+</body>
+</html>
