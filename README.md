@@ -3,7 +3,7 @@ source code for my site, hosted at -> https://rjtodd.org
 
 ## What's included/priorities
 
-- my blog posts
+- my blog
 - my resume
 - built-in contact form with backend email delivery
 - cool photos
