@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linux Dotfiles + Script Release - Roman Todd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/dotfiles.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="brand-column">
+      <a href="../" class="home-link">로만 </a>
+      <button class="back-button" onclick="window.location.href='../blog'">blog</button>
+      <button class="back-button" onclick="window.location.href='../contact'">contact</button>
+    </div>
+  </header>
+
+  <div class="container">
+<h1 class="main-heading">Automating My Linux Environment</h1>
+
+<!-- meta-bar must be a sibling of the H1, not inside it -->
+<div class="meta-bar">
+  <span class="post-date">- July 15, 2025</span>
+  <a class="repo-link" href="https://github.com/roman-xo/dotfiles" target="_blank" rel="noopener">→ View Repository</a>
+</div>
+
+
+    <h2>What is BSPWM?</h2>
+    <p>BSPWM (Binary Space Partitioning Window Manager) is a tiling window manager that organizes windows using a binary space partitioning tree. This means it recursively splits your screen into non-overlapping regions, allowing for efficient and dynamic window layouts.</p>
+    <p>Unlike many window managers, BSPWM does not handle input (keybindings or mouse events) directly—instead, it works alongside <code>sxhkd</code> (Simple X Hotkey Daemon) for hotkey management.</p>
+    <p>Configuration is done entirely through plain text and shell scripts, giving users full control over how their system behaves. BSPWM is lightweight, fast, and designed for users who prefer a keyboard-driven workflow and a highly customizable and minimalist linux environment.</p>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;">
+    <div style="padding-top: 0px;">
+    <h2> Why I Made This Script</h2>
+    <p>When I first migrated to BSPWM, my journey with linux up until that point had been rapid. I had gone from Ubuntu --> Arch KDE --> Arch BSPWM within the span of around 6 months of solely learning and using linux, and felt prepared to try and make the leap to the most minimal desktop environment that I could.</p>
+    <p>At the time, there weren't many resources focused specifically on BSPWM, so most of the configuration and learning process was purely trial and error, and once I had got the initial installation process down, I wanted to implement the same setup I created consistently across my devices.</p>
+    <p>The problem? Going through and reconfiguring everything from scratch each time was going to be extremely tedious and time-consuming. So, I developed this install script—a personal solution to automate my environment to any machine and keep it always synced through a public repository to pull from.</p>
+    <p>While not intended to be an overly complex or refined script, It was tailored to fit my use case and maximize efficiency for a base arch environment installation. The aim in developing this is to publish my dotfiles to the public, and help people in my life who are interested in trying out a minimalist window manager like BSPWM for themselves. The rest of this blog will be essentially a 1:1 to my github repository.</p>
+ <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"> 
+
+ </div>
+</div>
+  <div class="centered-image">
+    <img src="../assets/images/blog/dotfiles/img1.png" alt="Desktop Screenshot" />
+    <div class="caption">
+      Desktop environment example after executing the script and rebooting on a fresh Arch Linux install
+    </div>
+  </div>
+  <div class="side-content">
+	<h1>‣ &nbsp;Goals </h1>
+    <ul class="bullet-list">
+      <li>Fully automate the creation of a BSPWM Environment</li>
+      <li>Allow easy, dynamic color theming with <code>pywal</code></li>
+      <li>Apply my personal dotfiles and workstations</li>
+      <li>Easily portable across machines, always accessible</li>
+    </ul>
+
+    <div class="section-spacing">
+      <h1>‣ &nbsp;What the Script Does </h1>
+      <p class="italic-bold">In order:</p>
+      <ul class="bullet-list">
+        <li>Updates system with <code>pacman</code></li>
+        <li>Installs all required dependencies</li>
+        <li>Clones my dotfiles</li>
+        <li>Links config files and installs fonts</li>
+        <li>Applies <code>pywal</code> color scheme</li>
+        <li>Configures <code>zsh</code> as the login shell</li>
+        <li>Sets up Nitrogen and SDDM</li>
+        <li>Makes all scripts executable</li>
+        <li>Prompts for reboot</li>
+      </ul>
+    </div>
+
+    <div class="section-spacing">
+      <h1>☀  Installation</h1>
+
+      <details open>
+        <summary><strong>Install Using The Script</strong></summary>
+        <p><strong>Requirements:</strong></p>
+        <ul class="bullet-list">
+          <li>Clean Arch installation</li>
+          <li>Internet access</li>
+          <li>User (not root) access</li>
+          <li><code>git</code>, <code>curl</code>, <code>sudo</code> installed</li>
+        </ul>
+        <pre><code># Install Git (if haven't already)
+sudo pacman -S git
+
+# Clone the repository
+git clone https://github.com/roman-xo/dotfiles/
+
+# Run the installer
+cd ~/.dotfiles
+chmod +x install.sh
+./install.sh
+</code></pre>
+        <p><em>Best run from a TTY session.</em></p>
+      </details>
+
+      <details open>
+        <summary><strong>Clone into Existing Environment</strong></summary>
+        <p>For those who already have a WM or DE setup:</p>
+        <pre><code># Clone the repository
+~ » git clone https://github.com/roman-xo/dotfiles/
+</code></pre>
+      </details>
+    </div>
+
+    <div class="section-spacing">
+      <h1>‣ &nbsp;Main Dependencies</h1>
+      <table>
+        <thead>
+          <tr><th>Package</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>bspwm</code></td><td>Tiling window manager</td></tr>
+          <tr><td><code>sxhkd</code></td><td>Hotkey daemon</td></tr>
+          <tr><td><code>polybar</code></td><td>Status bar</td></tr>
+          <tr><td><code>rofi</code></td><td>Launcher</td></tr>
+          <tr><td><code>dunst</code></td><td>Notifications</td></tr>
+          <tr><td><code>pywal</code></td><td>Wallpaper-based theming</td></tr>
+          <tr><td><code>picom</code></td><td>Compositor</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h1> ‣ &nbsp;Additional Notes</h1>
+      <ul class="bullet-list tall-lines">
+        <li>
+          You can enable window animations with picom, simply add the following line in <code>~/.config/picom/picom.conf</code>:
+          <div style="padding-top: 10px;">  
+	<pre>@include "picom-animations.conf"</pre>
+        </li>
+	<li>
+	<div style="padding-top: 10px;">
+          To change themes, run:
+        <div style="padding-top: 10px;">
+          <pre><code>~ » wal -i ~/wallpapers/your_image.jpg</code></pre>
+        </li>
+        <li>
+        <div style="padding-top: 10px;">
+          Wallpapers are managed via <code>Nitrogen</code>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<footer style="text-align: center; padding: 2.5rem 1rem 2rem 1rem;">
+
+  <div style="margin-top: 0.3rem;">
+    <p style="margin: 0rem 0; font-size: 1.1rem;">This project is open-source.</p>
+    <p style="margin: 0.5rem 0; font-size: 1.1rem;"><a href="https://github.com/roman-xo/dotfiles/" style="color:#007bff; text-decoration:none;">- View the GitHub Repo</a></p>
+  </div>
+
+  <div style="margin-top: 0rem;">
+       <div style="text-align: center;">
+        <hr style="border: none; height: 1px; background-color: gray; width: 60%; margin: 1.4rem auto;">
+	<p class="signature">
+         Roman Todd   —   07-15-25
+
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

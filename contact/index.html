@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - Roman Todd</title>
+  <link rel="stylesheet" href="../assets/css/contact.css" />
+</head>
+<body>
+
+<header>
+<div style="position: absolute; top: 2px; left: 0px; transform: scale(1);">
+  <div class="brand-column">
+      <a href="/" class="home-link">로만 </a>
+</div>
+<div style="position: absolute; left: 49px; top: 88px; transform: scale(1);">
+	<div class="back-button" onclick="window.location.href='/blog'">blog</div>
+    </div>
+    </div>
+</header>
+
+<div class="content">
+  <h1>To contact directly</h1>
+  <div class="social-icons">
+    <a href="https://discordlookup.com/user/273254125603651585">
+      <img src="/assets/static/discord.png" alt="Discord" />
+    </a>
+    <a href="https://m.me/hollywoodvishnu/">
+      <img src="/assets/static/messenger.png" alt="Messenger" />
+    </a>
+  </div>
+
+  <div class="contact-box" onclick="toggleForm()">From the site</div>
+  <div class="contact-form" id="contact-form">
+    <form action="https://formspree.io/f/meozpjlo" method="POST" enctype="multipart/form-data">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required oninput="adjustFormSize()"></textarea>
+
+      <div class="file-upload">
+        <label for="file-upload-input">
+          Send a file (max. 10 Mb)
+          <img src="/assets/static/upload.png" alt="Upload" style="width: 18px; height: 18px; margin-left: 6px; vertical-align: middle;" />
+        </label>
+        <input type="file" id="file-upload-input" name="file-upload" accept="*/*" onchange="updateFileName()" />
+
+        <span id="file-info">
+          <span id="file-name" class="file-name"></span>
+          <span class="remove-file" onclick="removeFile()">
+            <img src="/assets/static/trash.png" alt="Remove file" style="width: 19px; height: 19px;" />
+          </span>
+        </span>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function toggleForm() {
+    const form = document.getElementById('contact-form');
+    form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function adjustFormSize() {
+    const messageBox = document.getElementById('message');
+    const form = document.getElementById('contact-form');
+    form.style.minHeight = messageBox.scrollHeight + 100 + 'px';
+  }
+
+  function updateFileName() {
+    const fileInput = document.getElementById('file-upload-input');
+    const fileNameDisplay = document.getElementById('file-name');
+    const removeBtn = document.querySelector('.remove-file');
+
+    if (fileInput.files.length > 0) {
+      fileNameDisplay.textContent = fileInput.files[0].name;
+      fileNameDisplay.style.display = 'inline-block';
+      removeBtn.style.display = 'inline-block';
+    } else {
+      fileNameDisplay.textContent = '';
+      fileNameDisplay.style.display = 'none';
+      removeBtn.style.display = 'none';
+    }
+  }
+
+  function removeFile() {
+    const fileInput = document.getElementById('file-upload-input');
+    const fileNameDisplay = document.getElementById('file-name');
+    const removeBtn = document.querySelector('.remove-file');
+
+    fileInput.value = '';
+    fileNameDisplay.textContent = '';
+    fileNameDisplay.style.display = 'none';
+    removeBtn.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Building a DNS Server For Productivity - Roman Todd
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Raleway:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link href="../assets/css/DNS.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header>
+   <div class="brand-column">
+    <a class="home-link" href="../">
+     로만
+    </a>
+    <button class="back-button" onclick="window.location.href='../blog'">
+     blog
+    </button>
+    <button class="back-button" onclick="window.location.href='../contact'">
+     contact
+    </button>
+   </div>
+  </header>
+  <div class="blog-wrapper">
+   <aside class="toc">
+    <h2 id="contents">
+     Contents
+    </h2>
+    <ol>
+     <li>
+      <a href="#intro">
+       &nbsp;Context
+      </a>
+     </li>
+     <li>
+      <a href="#2--network">
+       &nbsp;Network
+      </a>
+      <ol>
+       <li>
+        <a href="#components">
+         &nbsp;Components
+        </a>
+       </li>
+      </ol>
+     </li>
+     <li>
+      <a href="#3--pi-hole-configuration-&amp;-purpose">
+       &nbsp;Pi-hole Configuration & &nbsp;Purpose
+      </a>
+      <ol>
+       <li>
+        <a href="#31-why-i-use-unbound">
+         &nbsp;Why I Use Unbound
+        </a>
+       </li>
+       <li>
+        <a href="#32-workflow-/-dns-segmentation">
+         &nbsp;Workflow / DNS &nbsp;Segmentation
+        </a>
+       </li>
+       <li>
+        <a href="#33-ssh--&amp;-custom-scripts">
+         &nbsp;SSH & Custom Scripts
+        </a>
+       </li>
+       <li>
+        <a href="#34-repository-overview">
+         &nbsp;Repository Overview
+        </a>
+       </li>
+      </ol>
+     </li>
+     <li>
+      <a href="#4--how-this-effects-my-life">
+       &nbsp;How This Effects My Life
+      </a>
+      <ol>
+       <li>
+        <a href="#41-staying-on-task-(why-do-this-anyways?)">
+         &nbsp;Staying On Task (Why &nbsp;do this anyways?)
+        </a>
+       </li>
+       <li>
+        <a href="#42-leisure-time-+-media-consumption">
+         &nbsp;Leisure Time + Media &nbsp;Consumption
+        </a>
+       </li>
+       <li>
+        <a href="#43-conclusion">
+         &nbsp;Conclusion
+        </a>
+       </li>
+      </ol>
+     </li>
+    </ol>
+   </aside>
+  </div>
+  <div class="blog-wrapper">
+   <div class="container">
+    <h1 class="main-heading">
+     Building a Self-Hosted DNS Server To Maximize Productivity
+    </h1>
+
+<div class="meta-bar">
+   <span class="post-date">- September 22, 2025</span>
+   <a class="repo-link" href="https://github.com/roman-xo/roman-dns-stack" target="_blank" rel="noopener">→ View Repository</a>
+ </div>
+    <h2 id="intro">
+     1 . Context
+    </h2>
+    <p>
+     Whenever I was first building my personal home network infrastructure, my main goal was to find as many ways as I could to implement enterprise-grade switching and routing practices that I had learned while maintaining the most practical
+utility within my home environment. What had struck me as being the most important in this endeavor were two things:
+    </p>
+    <ul class="bullet-list">
+     <li>
+      Maximizing overall productivity by implementing network practices that directly supported my workflow and contributed towards daily use.
+     </li>
+     <div style="padding-top: 10px;">
+      <li>
+       Preserving privacy by reducing total reliance on external services.
+      </li>
+     </div>
+    </ul>
+    <p>
+    it was from this mindset that I came to realize DNS is both a simple, but immensely powerful protocol that can be expanded to support both of these priorities directly, in ways one might not initially think of. I wanted to make this post to share this mentality & show its application in home labbing.
+    </p>
+    <p>
+     This post aims to demonstrate how DNS functions in my own home lab &amp; how it can be setup and automated as a tool that can be used daily to enhance and contribute to productivity habits.
+    </p>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
+    <h2 id="2--network">
+     2 . Network
+    </h2>
+    <p>
+     The main fabric of this project is my home network infrastructure, which I'm always designing and tinkering with to keep its utility while still allowing me to experiment with different enterprise practices and be used for studying.
+    </p>
+    <p>
+     Since this is still a relatively new home lab, the layout is intentionally simple but structured in a way that can scale as I expand.
+    </p>
+    <div style="padding-top: 0.3rem;">
+     <h3 class="lined" id="components">
+      2.1 Components
+     </h3>
+    </div>
+    <div style="padding-top: 1.2rem;">
+     <ul class="component-list">
+      <li style="list-style: disc; margin-left: -0em;">
+       <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <span class="component-title">
+         Cisco Catalyst 3560-CX Switch
+         <span class="caption">
+          (Layer 3 Switch)
+         </span>
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Provides VLAN segmentation &amp; inter-VLAN routing
+        </li>
+        <li>
+         Handles DHCP relay, QoS, and ACLs to keep management and client traffic separate
+        </li>
+        <li>
+         Functions as the default gateway for all VLANs
+        </li>
+        <li>
+         Implements other technologies like SSH, port security, and DHCP snooping
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: -0em; padding-top: 0.3rem;">
+       <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <span class="component-title">
+         Lenovo ThinkCentre Mini PC
+         <span class="caption">
+          (Media Server)
+         </span>
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Hosts a self-hosted media server stack
+         <a href="https://github.com/jellyfin/jellyfin">
+          (Jellyfin)
+         </a>
+        </li>
+        <li>
+         Provides centralized storage for personal files
+        </li>
+        <li>
+         Accessible via SFTP for file transfers
+        </li>
+        <li>
+         Connected to the Media VLAN for high-speed streaming
+        </li>
+        <li>
+         Configured as a centralized syslog node for monitoring
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: -0em;">
+       <div style="display: flex; align-items: center; margin-bottom: 0; margin-top: -5px;">
+        <img alt="Raspberry Pi" src="/assets/static/pi.png" style="width:23px; height:23px; margin-right:6px;"/>
+        <span class="component-title">
+         Raspberry Pi #1
+         <span class="caption">
+          (DNS & DHCP Server)
+         </span>
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Runs <a href="https://github.com/pi-hole/pi-hole">Pi-hole</a> with <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> as a recursive DNS resolver
+        </li>
+        <li>
+         Provides ad/malware blocking, DNSSEC validation, and privacy by resolving queries directly against root servers
+        </li>
+        <li>
+         Placed in the Management VLAN
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: -0em;">
+       <div style="display: flex; align-items: center; margin-bottom: 0; margin-top: -5px;">
+        <img alt="Raspberry Pi" src="/assets/static/pi.png" style="width:23px; height:23px; margin-right:6px;"/>
+        <span class="component-title">
+         Raspberry Pi #2
+         <span class="caption">
+          (TV Client)
+         </span>
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Runs <a href="https://github.com/xbmc/xbmc">Kodi</a>
+         as a frontend media client
+        </li>
+        <li>
+         Connects to the media server via the Media VLAN
+        </li>
+        <li>
+         Allows for content consumption without depending on proprietary ecosystems
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: -0em;">
+       <div style="display: flex; align-items: center; margin-bottom: 0; margin-top: -5px;">
+        <img alt="Raspberry Pi" src="/assets/static/pi.png" style="width:23px; height:23px; margin-right:6px;"/>
+        <span class="component-title">
+         Raspberry Pi #3
+         <span class="caption">
+          (VPN &amp; Utility Server)
+         </span>
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Hosts a WireGuard VPN for secure SSH access
+        </li>
+        <li>
+         Runs SFTP/OpenSSH for file transfer &amp; remote management
+        </li>
+        <li>
+         Provides a TFTP service for Cisco firmware updates &amp; config backups
+        </li>
+        <li>
+         Placed in the Management VLAN
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: 0.3em; padding-top: 0.5rem;">
+       <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <span class="component-title">
+         ISP Home Gateway
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         Provides WAN connectivity
+        </li>
+        <li>
+         DHCP for wireless clients
+        </li>
+       </ul>
+      </li>
+      <li style="list-style: disc; margin-left: 0.3em; padding-top: 0.5rem;">
+       <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <span class="component-title">
+         Extras + Misc. Equipment
+        </span>
+       </div>
+       <ul class="detail-list" style="margin-top: 0px;">
+        <li>
+         External hard drives for storing files &amp; media
+        </li>
+        <li>
+         Standard CAT6 cables, terminated by me
+        </li>
+        <li>
+         PDU
+        </li>
+       </ul>
+      </li>
+      <div style="padding-top: 0.1rem;">
+       <p>
+        For more specific details regarding how I make use of all of these services, I have a post
+        <a href="./Workflow.html">here</a>
+        detailing how I've integrated my lab into my workflow.
+       </p>
+      </div>
+     </ul>
+    </div>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
+    <h2 id="3--pi-hole-configuration-&amp;-purpose">
+     3 . Pi-hole Configuration &amp; Purpose
+    </h2>
+    <div class="section-with-images">
+     <div class="section-text">
+      <p style="padding-left: 1px; width: 125%;">
+       <a href="https://github.com/pi-hole/pi-hole">Pi-hole</a>
+       is the service that I host for providing DNS control in my network. It operates as a network-wide DNS server that intercepts queries from connected devices and applies filtering rules in real time. Some key benefits include:
+      </p>
+      <ul class="bullet-list">
+       <div style="line-height: 1.9;">
+        <li>
+         Network-wide ad-blocking &amp; privacy protection.
+        </li>
+        <li>
+         Custom blacklisting (including based on VLAN/client devices)
+        </li>
+        <li>
+         Block proprietary trackers &amp; telemetry on home smart TVs.
+        </li>
+        <li>
+         Centralized DNS monitoring by logging queries &amp; creating statistics
+        </li>
+        <li>
+         Can be expanded to be used as a DHCP server, dynamically asigning DNS.
+        </li>
+       </div>
+      </ul>
+     </div>
+     <div class="section-images">
+      <figure>
+       <div style="flex: 0 0 340px; position: relative; top: -10px; left: 15px;">
+        <img src="../assets/images/blog/dns/img1.png"/>
+        <figcaption style="padding-top: 10px">
+         Pi-hole Logo
+        </figcaption>
+       </div>
+      </figure>
+      <img src="../assets/images/blog/dns/img2.png"/>
+      <figcaption>
+       Pi-hole dashboard
+      </figcaption>
+     </div>
+    </div>
+    <div style="padding-top: 1.8rem;">
+     <h3 id="31-why-i-use-unbound">
+      3.1 Why I Use Unbound
+     </h3>
+     <div class="section-with-images">
+      <div class="section-text">
+       <p style="padding-left: 1px; width: 220%;">
+        To avoid reliance on third-party DNS providers and maximize privacy, I pair my Pi-hole configuration with
+        <a href="https://nlnetlabs.nl/projects/unbound/about/">
+         Unbound
+        </a>
+        —a recursive, caching DNS resolver. Using Unbound allows my setup to query root DNS servers directly, instead of forwarding requests to Google or any other upstream providers.
+       </p>
+       <p style="padding-left: 1px; width: 220%;">
+        While Pi-hole alone grants me DNS control, by default it doesn't provide anything outside of that. It will still use external servers to resolve domains. Using unbound ensures that the service is officially mine.
+       </p>
+       <p style="padding-left: 1px; width: 220%; padding-top: 12px;">
+        Using Unbound grants my network with:
+       </p>
+       <ul class="detail-list">
+        <li>
+         Privacy-first architecture
+        </li>
+        <li>
+         DNSSEC validation
+        </li>
+        <li>
+         DNS-Over-TLS
+        </li>
+        <li>
+         Full control over the resolution chain
+        </li>
+       </ul>
+      </div>
+      <div style="flex: 0 0 340px; position: relative; top: 235px; left: 30px;">
+       <img src="../assets/images/blog/dns/img3.png" style="max-width: 100%;"/>
+       <div class="caption">
+        <p style="position: relative; top: -28px; left: 28px; font-size: 1rem;">
+         Unbound uses loopback (127.0.0.1#5335)
+        </p>
+        <p style="position: relative; top: -37px; left: -24px; font-size: 1rem; width: 220%">
+         This forwards all queries to unbound running on localhost
+        </p>
+       </div>
+      </div>
+     </div>
+     <div style="padding-top: 5.9rem;">
+      <h3 id="32-workflow-/-dns-segmentation">
+       3.2 Workflow / DNS Segmentation
+      </h3>
+      <p>
+       This was what gave me the initial spark to use Pi-Hole—as it lets me tailor my blacklists according to what I'm doing, focused on, &amp; grants me the ability to automate them according to custom rules as well.
+      </p>
+      <p>
+       These are my custom groups:
+      </p>
+      <ul class="detail-list">
+       <li>
+        <b>
+         Work
+        </b>
+        - Blocks distracting sites &amp; made to enforce that I stay on task throughout the day
+       </li>
+       <li>
+        <b>
+         Study
+        </b>
+        - Similar to Work, but tweaked independently according to what I'm focused on &amp; wanting to study
+       </li>
+       <li>
+        <b>
+         Leisure
+        </b>
+        - Blacklists any sites that I don't want to spend my free-time on (Like work-related sites)
+       </li>
+       <li>
+        <b>
+         Baseline
+        </b>
+        - Always on. Provides ad-blocking and privacy protection. I have 600,000+ domains blocked currently
+       </li>
+       <li>
+        Unrestricted (Rarely used)
+       </li>
+      </ul>
+     </div>
+     <div style="padding-top: 2rem;">
+      <h3 id="33-ssh--&amp;-custom-scripts">
+       3.3 SSH  &amp; Custom Scripts
+      </h3>
+      <p>
+       To streamline management, I developed a set of custom shell scripts that sit on the Pi-hole server &amp; client-side scripts that stay synced to my Linux devices. They are configured to be executed
+over SSH.
+      </p>
+      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+       Workflow selection script
+      </p>
+      <div class="centered-image">
+       <img alt="Workflow Filtering" src="../assets/images/blog/dns/img4.png"/>
+      </div>
+      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+       Updater script interface
+      </p>
+      <div class="centered-image">
+       <img alt="Updater Script" src="../assets/images/blog/dns/img5.png"/>
+      </div>
+      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+       DNS statistics checker
+      </p>
+      <div class="centered-image">
+       <img alt="DNS Statistics" src="../assets/images/blog/dns/img6.png"/>
+      </div>
+      <p>
+       The source-code for these are all hosted on my
+       <a href="https://github.com/roman-xo/roman-dns-stack/">
+        GitHub repository.
+       </a>
+      </p>
+      <p>
+       These allow me to not need to jump between devices constantly &amp; perform maintenance tasks on Pi-hole straight from SSH.
+      </p>
+      <div style="padding-top: 1rem;">
+       <h3 id="34-repository-overview">
+        3.4 Repository Overview
+        <h3 id="">
+        </h3>
+       </h3>
+      </div>
+      <p>
+       I wanted to take advantage of git when I initially began this project. I thought it would be interesting to try and keep my configurations &amp; home lab services
+kept synced through an open-source repository, albeit while preserving privacy &amp; not leaking sensitive info. (Because of this, the majority of them remain private)
+      </p>
+      <p>
+       This is why I now have this repo:
+       <a href="https://github.com/roman-xo/roman-dns-stack/">
+        roman-dns-stack
+       </a>
+      </p>
+      <p>
+       The repo contains all of my scripts, blocklists, unbound, some screenshots and a few txt &amp; markdown documents.
+      </p>
+      <p style="color: gray; padding-top: 5px; font-style: italic; font-weight: bold;">
+       Example - baseline.txt
+      </p>
+      <div id="txt-container" style="border:1px solid #ccc; border-radius:8px; padding:10px; 
+            background:#00000; max-height:220px; overflow:auto; 
+            font-family:Geist Mono; white-space:pre-wrap; font-size: 0.9rem;">
+       Loading...
+      </div>
+      <script>
+       fetch("https://raw.githubusercontent.com/roman-xo/roman-dns-stack/refs/heads/main/blocklists/baseline.txt")
+    .then(res => res.text())
+    .then(text => {
+      document.getElementById("txt-container").textContent = text;
+    });
+      </script>
+     </div>
+     <p>
+      This file links to all of my adlists, put under the "baseline" group in Pi-hole. Credits to <a href="https://github.com/hagezi/dns-blocklists">Hagezi</a> + <a href="https://github.com/StevenBlack/hosts">StevenBlack</a> for the adlists.
+     </p>
+     <a href="https://github.com/roman-xo/roman-dns-stack" target="_blank">
+      <img alt="GitHub Repo Preview" src="https://opengraph.githubassets.com/1/roman-xo/roman-dns-stack" style="max-width:100%; max-height: 220px; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.15);"/>
+     </a>
+     <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
+     <h2 id="4--how-this-effects-my-life">
+      4 . How This Effects My Life
+     </h2>
+     <p>
+      Now that I've explained the technical related aspects, I'd like to talk about &amp; explain how this infrastructure particularly plays into my daily workflow and has helped in supporting
+what I've needed it to do.
+     </p>
+     <p>
+      I'll have a
+      <i>
+       much
+      </i>
+      more detailed explanation in my
+      <a href="../placeholder/">
+       Productivity Workflow + Home Lab
+      </a>
+      post detailing how my home lab functions in its entirety, but I'll take the time to focus strictly on DNS in this post.
+     </p>
+     <div style="padding-top: 1rem;">
+      <h3 id="41-staying-on-task-(why-do-this-anyways?)">
+       4.1 Staying On Task (Why do this anyways?)
+      </h3>
+      <p>
+       Before every work session, I make sure that I run my
+       <code>workflow</code>
+       script to set my group to "Work" along with
+       <code>pacman -Syu</code>
+       to synchronize my arch packages. I can then use
+       <code>piholeupdate</code>
+       to sync my pihole settings (officially applying them) and start the session.
+      </p>
+      <p>
+       Whenever I'm in this mode, the process is pretty self-explanatory: Anytime I'm distracted, I'm quickly reminded of the restrictions I put in place, and can't access any distracting sites.
+      </p>
+      <p>
+       This helps not only with not using blacklisted sites but also enforces:
+      </p>
+      <ul class="detail-list">
+       <li>
+        Not falling into algorithmic pipelines &amp; feedback loops, even if I'm using said site for one singular purpose
+       </li>
+       <li>
+        Forces me into starting work faster &amp; getting into flow as soon as I begin.
+       </li>
+      </ul>
+      <p>
+       Another particularly unique part about this setup is the advantage of being able to implement some of the standard features of already existing programs like "Cold Turkey" (a website blocker for productivity) integrated into my very network infrastructure. This keeps my tools self-hosted and allows them to blends seamlessly into other DNS rules. An interesting aspect to this is it grants me the ability to:
+      </p>
+      <ul class="detail-list">
+       <li>
+        Pi-hole + Cron jobs - Schedule times of the day to perform functions
+       </li>
+       <li>
+        Dynamic Firewall rules
+       </li>
+       <li>
+        VLANs to isolate devices
+       </li>
+       <li>
+        Block traffic by port &amp; protocol - target apps that use nonstandard domains like Discord
+       </li>
+      </ul>
+      <p>
+       Because I can segment traffic as well, this allows for network experimentation & means my setup won't get in the way of other clients &amp; users on the network. It transforms it into an engaging way to learn home labbing &amp; apply my networking knowledge to minimize relying on external programs. It also helps to not be tied to things like, subscriptions.
+      </p>
+     </div>
+     <div style="padding-top: 1rem;">
+      <h3 id="42-leisure-time-+-media-consumption">
+       4.2 Leisure Time + Media Consumption
+      </h3>
+      <p>
+       In the book
+       <i>
+        Digital Minimalism
+       </i>
+       by Cal Newport, he outlines a concept he calls
+       <b>
+        high-quality leisure:
+       </b>
+        activities that are satisfying, mentally engaging, and valuable to your life. He contrasts high quality leisure with digital activities that shorten your attention and encourage passive consumption (like: doomscrolling).
+      </p>
+      <p>
+       The goal with high-quality-leisure is pretty simple: to reclaim time, attention, and mental energy within our free time—and create space for more fulfilling and purposeful experiences.
+      </p>
+      <p>
+       This was the motivation behind my "Leisure" blocklist. Rather than outright being unrestricted, I can in the same way as Work &amp; Study, "force" myself to immediately have the focus of high-quality-leisure in mind, and to not accidentally slip my mind into work mode nor spend my free-time doomscrolling.
+      </p>
+      <p>
+       This plays into why I decided to start using Jellyfin + Kodi as well. Not only is it highly customizable and can be catered towards my preferences and experience, but allows me to jump right into whatever content, movies, and TV shows I'd like to enjoy without ads &amp; being connected to the internet.
+      </p>
+      <p>
+       Additionally, I've got into the habit of writing notes and journaling themes, quotes, etc. that I've extracted while watching new movies or TV shows. I also write down sentences &amp; timestamps for learning new words in foreign languages through
+       <a href="https://i.imgur.com/SiJNsEc.png">
+        sentence mining
+       </a>
+       . This approach has brought watching media in a useful way to another level.
+      </p>
+     </div>
+     <div style="padding-top: 1rem;">
+      <h3 id="43-conclusion">
+       4.3 Conclusion
+      </h3>
+      <p>
+       This project was a simple, neat &amp; fun way to try and make use of scripting, networking &amp; DNS in day-to-day life. This is also the first blog post I've written where I detail my home lab. If you want to learn more about how my home lab works with my daily routine, I plan to go into further detail <a href="./Workflow.html">here.</a> If you took the time to read/and or learned anything useful, thank you!
+      </p>
+      <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
+      <div style="text-align: center;">
+       <p class="signature">
+        Roman Todd   —   09-22-25
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

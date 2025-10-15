@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no">
+  <title>A Practical Subnetting Guide - Roman Todd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=geist-mono@1&display=swap">
+  <link rel="stylesheet" href="../assets/css/subnetting.css"/>
+</head>
+<body>
+
+<header>
+  <div class="brand-column">
+    <a href="../" class="home-link">로만 </a>
+    <button class="back-button" onclick="window.location.href='../blog'">blog</button>
+    <button class="back-button" onclick="window.location.href='../contact'">contact</button>
+  </div>
+</header>
+
+<div class="blog-wrapper">
+<aside class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#intro"> &nbsp;Introduction</a></li>
+    <li><a href="#why"> &nbsp;Why This Method Is &nbsp;Inefficient</a></li>
+    <li><a href="#method"> &nbsp;My Alternative</a></li>
+    <li>
+      <a href="#problems1">&nbsp;How To Solve Any &nbsp;Subnetting Problem</a>
+      <ol>
+        <li><a href="#four-one"> &nbsp;Identification Questions</a></li>
+        <li><a href="#four-two"> &nbsp;Standard Subnetting &nbsp;Questions</a></li>
+        <li><a href="#four-three"> &nbsp;Applied VLSM &nbsp;Subnetting</a></li>
+      </ol>
+    </li>
+    <li>
+      <a href="#beyond"> &nbsp;Subnetting Beyond /24</a>
+      <ol>
+        <li><a href="#hosts"> &nbsp;Calculating Hosts for /1 &nbsp;- /23</a></li>
+        <li><a href="#subnetting-20">&nbsp;Subnetting Questions &nbsp;2.0</a></li>
+      </ol>
+    </li>
+    <li><a href="#closing">&nbsp; Closing Thoughts</a></li>
+  </ol>
+</aside>
+</div>
+
+
+<div class="blog-wrapper">
+  <div class="container">
+    <h1 class="main-heading">A Practical Subnetting Guide</h1>
+    <p class="post-date">- August 28, 2025</p>
+
+    <h2 id="intro">1 . Introduction </h2>
+    <p>When I initially began studying for the CCNA 200-301 exam, I was enrolled in an instructor-led program that follows the material of Cisco's NetAcad course. This is an official course provided by Cisco for aspiring networking professionals to learn the material of the CCNA exam. This course is very well-known and widely taught, and it's where many networking professionals begin their studies.</p>
+
+    <p>However, a criticism that the NetAcad curriculum often receives is for its emphasis on rote procedures over conceptual understanding. Many topics, including subnetting, are presented in a prescriptive, step-by-step format that prioritizes passing the exam rather than fostering a deeper comprehension of how networks operate in practice.</p>
+
+    <p>The traditional subnetting approach in NetAcad relies heavily on binary conversion and bitwise operations. While this is a&nbsp;<i>technically</i>&nbsp; correct way of understanding subnetting, it doesn't have any practical utility or value for a real network engineer. Most concepts that are taught in NetAcad are things I could find a way to do on the spot—and in my head. Subnetting was the first and one of the only challenges that couldn't receive this same treatment.</p>
+
+    <p>This is the conventional method that many beginners are taught: </p>
+
+    <div style="padding-top: 0.1rem;">
+      <p><b>1 — Converting the IPv4 to binary </b></p>
+      <p>Given — <b>192.168.10.77 /27</b>:</p>
+      <div class="code-box">
+192    =   11000000<br>
+168    =   10101000<br>
+010    =   00001010<br>
+077    =   01001101
+      </div>
+      <p>Combined: <code>11000000 . 10101000 . 00001010 . 01001101 </code></p>
+      <p><b>2 — Apply the same to the subnet mask</b></p>
+      <div class="code-box">
+255    =   11111111<br>
+255    =   11111111<br>
+255    =   11111111<br>
+224    =   11100000
+      </div>
+      <p>Combined: <code>11111111.11111111.11111111.11100000 </code></p>
+      <p><b>3 — Perform a bitwise "AND"</b></p>
+      <div class="code-box" style="line-height: 2rem;">
+IP       =    11000000.10101000.00001010.01001101<br>
+Mask     =    11111111.11111111.11111111.11100000<br>
+Network  =    11000000.10101000.00001010.01000000  →  192.168.10.64
+      </div>
+      <p><b> 4  — Determine block size</b></p>
+      <div class="code-box">
+256 − 224 = 32 ---&gt; block size
+
+
+# Determine broadcast address
+
+192.168.10.64 + 32 − 1 = 192.168.10.95
+
+
+# Determine usable host range
+
+192.168.10.65 – 192.168.10.94
+      </div>
+    </div>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <h2 id="why">2 . Why This Method Is Inefficient</h2>
+    <p>While the traditional subnetting process isn’t “wrong” ,  it’s just unnecessarily complex for most real-world situations. Here’s why:</p>
+    <ul class="bullet-list">
+      <li><b>Excessive binary conversion</b> – Converting every octet of an IP address and subnet mask into binary, then back into decimal, adds steps that don’t contribute to the final answer once you understand how subnetting works.</li>
+      <li><b>Error-prone under time pressure</b> – Manual binary-to-decimal conversions increase the chance of small mistakes that throw off the entire calculation, especially during an exam or live scenario.</li>
+      <li><b>Slower scaling for multiple networks</b> - If you’re calculating ranges for dozens of subnets, the traditional method forces you to repeat unnecessary binary work for each one.</li>
+      <li><b>Doesn't match modern workflows</b> - In real network environments, quick mental math or automated tools are going to be preferred over step-by-step binary calculations, so it's only relevant within a teaching environment.</li>
+    </ul>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <h2 id="method">3 .  My Alternative </h2>
+    <p>The purpose of this post is to demonstrate how one can effectively perform subnetting and tackle a wide range of networking scenarios while keeping the most practical and realistic value. The method I'll be showing leverages a simple, memorized set of block sizes that can be used to quickly identify subnet masks, usable ranges, and broadcast addresses. By using this approach, network professionals can handle both exam-style questions and real-world network design or troubleshooting tasks with very minimal calculation. I'm going to start by showcasing how you can easily perform this starting with /25 - /32, and later on, for other ranges going into the third and second octet.</p>
+    <div style="text-align: center; padding-top: 0.5rem;">
+      <p>Here's the step by step guide for understanding it:</p>
+      <div style="padding-top: 10px;">
+        <h3> — Step 1 — </h3>
+        <div style="padding-top: 4px;">
+          <p> First, we're gonna skip the binary conversion altogether. </p>
+          <p> There's a very simple formula you can follow for this, however, I recommend you memorize these block sizes so you can always jot it down on the spot. </p>
+          <div class="code-box">
+  2^8 = 256 (Total # of possible values in an octet)
+  ------------------------------------------------------------<br>
+2^7 = 128<br>
+2^6 = 64<br>
+2^5 = 32<br>
+2^4 = 16<br>
+2^3 = 8<br>
+2^2 = 4<br>
+2       = 2<br>
+              1
+          </div>
+        </div>
+        <p>This gives us: <code>128, 64, 32, 16, 8, 4, 2, 1 </code></p>
+        <p style="color: gray"><i>These will be the # of addresses in each subnet.</i></p>
+        <h3> — Step 2 — </h3>
+        <p> Next, we're going to subtract each of these values from the 256 we got earlier: </p>
+        <div class="code-box">
+256  -  128   =   128<br>
+256  -  64      =   192<br>
+256  -  32      =   224<br>
+256  -  16      =   240<br>
+256  -  8         =   248<br>
+256  -  4         =   252<br>
+256  -  2         =   254<br>
+           -  1         =   255
+        </div>
+        <p>This gives us: <code> 128, 192, 224, 240, 248, 252, 254</code></p>
+        <p style="color: gray;"><i>These values will represent the subnet mask for that octet. </i></p>
+
+        <h3> — Step 3 — </h3>
+        <p>Lastly, you will want to list the CIDR notation starting from /25, and go up until you hit /32.</p>
+        <p>This will let us list everything out like this:</p>
+      </div>
+      <div style="padding-top: 0.5rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: center;">
+          <thead>
+            <tr style="background-color: #1e1e1e; color: #fff;">
+              <th>CIDR</th>
+              <th>Subnet Mask</th>
+              <th>Block Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>/25</td>
+              <td>.128</td>
+              <td>128</td>
+            </tr>
+            <tr>
+              <td>/26</td>
+              <td>.192</td>
+              <td>64</td>
+            </tr>
+            <tr>
+              <td>/27</td>
+              <td>.224</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>/28</td>
+              <td>.240</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <td>/29</td>
+              <td>.248</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>/30</td>
+              <td>.252</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>/31</td>
+              <td>.254</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>/32</td>
+              <td>.255</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="padding-top: 0.2rem;">
+          <p> I <b><i>highly</i></b> recommend that you first memorize how to write this down. As you become better at subnetting, the subnet masks with their associated CIDR notation &amp; block size will start to come very natural. 
+          You <i>will</i> reach a point where you can solve a majority of these questions without needing to write much down at all.</p> 
+          <p> Lastly, always remember that the total # of addresses is not the total # of <i><u>usable</u></i> hosts. You will want to subtract 2 from the block size to get that value. (1 for
+          the Network ID, and 1 for the Broadcast address.)</p>
+          <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;">
+          <p> That's it, this reveals all of the info needed to subnet in the /25 - /32 range. Later on, I'll explain how you can expand this to be used for any range. </p>
+          <p> For the CCNA Exam in particular, you will not need to know how to subnet in any range beyond this. </p>
+        </div>
+      </div>
+    </div>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <div style="padding-top: 5px;">
+
+      <h3 id="problems1">4 . How To Solve Any Subnetting Problem</h3>
+      <p> Firstly, when I say any subnetting problem, I truly mean  <i>any</i>  subnetting problem.</p>
+      <p> As it pertains to the CCNA, the majority of the questions you will need to answer are related to router next-hop decisions, and identifying the correct subnet mask.</p>
+      <p>In this section I'll be going over the different types of questions you can expect and covering how you can answer them conveniently using my method.</p>
+    </div>
+    <div style="padding-top: 1.5rem;">
+      <h3 id="four-one">• 4.1 Identification Questions</h3>
+    </div>
+    <p>This is the simplest type of problem you'll have relating to subnetting. These can be solved by simply using our cheat sheet as a
+    reference without much additional calculation.</p>
+    <p> These are also the simplest questions you can expect to get on a Cisco exam pertaining to subnetting. A chunk of quiz questions will be simple tests at your knowledge like these ones.</p>
+    <div style="padding-top: 0.8rem;">
+      <h2>- Question #1</h2>
+      <p>What is the subnet mask for a /25 prefix?</p>
+    </div>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Using our cheat sheet, we can see that the /25 is associated with the .128 subnet mask. (256 - 128 = .128)</p>
+      <p><b>✓ Answer:</b> 255.255.255.128</p>
+    </details>
+    <div style="padding-top: 2rem;">
+
+      <h2>- Question #2</h2>
+      <p>What is the subnet mask 255.255.255.192 in CIDR notation?</p>
+    </div>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Referencing our cheat sheet, we're able to see that a .192 subnet mask corresponds to the /26 CIDR notation</p>
+      <p><b>✓ Answer:</b>  /26 </p> 
+    </details>
+
+    <div style="padding-top: 2rem">
+      <h2>- Question #3 </h2>
+      <p>How many usable hosts are in a /30?</p>
+      <details>
+        <summary>➤ &nbsp;&nbsp;Explanation</summary>
+        <p>Referencing our cheat sheet, we know that the /30 CIDR notation has a block size of 4 (the total # of addresses).</p>
+        <p>Since the question is asking for the # of usable hosts, we'll need to subtract 2 from 4 (1 for the Broadcast IP and 1 for the Network ID)</p>
+        <p> 4 - 2 = 2 </p>
+        <p><b>✓ Answer</b>: there are 2 usable hosts.</p>
+      </details>
+    </div>
+    <div style="padding-top: 2rem;">
+      <h2>- Question #4 </h2>
+      <p>A company asks you to assign a subnet mask that supports no more than 30 hosts. What subnet mask is needed for this?</p>
+    </div>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Referencing our cheat sheet block sizes, /27 is the first subnet mask that allows for 30 hosts (The block size being 32).</p>
+      <p>Since there are 32 addresses total, we'll need to subtract 2 to determine the amount of usable hosts.</p>
+      <p> 32 - 2 = 30 , the exact amount of hosts needed for the network. </p>
+      <p><b>✓ Answer</b>: 255.255.255.224 </p>
+    </details>
+
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <div style="padding-top: 0.2rem;">
+      <h3 id="four-two">• 4.2 Standard Subnetting Questions</h3>
+      <p>These are the 2nd simplest types of problems and the most common you'll have relating to subnetting. These are questions that require you to determine what subnetwork certain addresses belong to.</p>
+      <p>These questions rely on your knowledge and understanding of CIDR logic and subnet ranges.</p>
+    </div>
+    <div style="padding-top: 0.9rem;">
+      <h2> - Question #1 </h2>
+      <p>While configuring an interface, you receive this error:</p>
+      <pre>Router(config-if)# ip address 192.168.1.63 255.255.255.192</pre>
+      <pre>% Invalid mask</pre>
+      <p>Problem: Why is this IP rejected?</p>
+    </div>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Using our cheat sheet, we can see that a .192 subnet mask corresponds to /26 CIDR notation.</p>
+      <p>Since a /26 can only have 64 addresses (our block size), let's list out the possible subnetworks:</p>
+      <div style="color: #d4d4d4; background-color: #1e1e1e; padding: 15px; border-radius: 5px;">
+
+        <!-- First row: subnet boundaries -->
+        <div style="display: flex; justify-content: space-between;">
+          <span>.0</span>
+          <span>.64</span>
+          <span>.128</span>
+          <span>.192</span>
+          <span>.256</span>
+        </div>
+
+        <!-- Second row: ranges -->
+        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #1</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #2</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #3</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #4</div>
+          </div>
+        </div>
+      </div>
+      <p> The address trying to be assigned is 192.168.1.63, and since .64 is the start of a new subnetwork, (Subnetwork #2) .63 is the last possible address for the .0 - .64 range</p>
+      <p> The last address will always be the broadcast address, since the # of usable addresses is determined by subtracting two from the total address amount (leaving us with 62)</p>
+      <div style="padding-top: 10px;">
+        <h3> Answer: </h3>
+        <p> ✓ Because it's the broadcast address of the 192.168.1.0/26 network, it cannot be assigned. The actual usable host range is .1 - .62 </p>
+      </div>
+    </details>
+    <div style="padding-top: 2rem;"></div>
+    <h2>- Question #2</h2>
+    <p>A company provides you with the subnet 192.168.10.32/28 and gives you these instructions: </p>
+    <ul class="bullet-list">
+      <li>Assign the first usable address to Router A's interface.</li>
+      <li>Assign the last usable address to Server A.</li>
+    </ul>
+    <p>What addresses do you assign?</p>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Since we're working with a /28 subnet mask, our corresponding block size is 16. We can identify the subnet ranges as so: </p>
+      <div style="color: #d4d4d4; background-color: #1e1e1e; padding: 15px; border-radius: 5px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span>.0</span>
+          <span>.16</span>
+          <span>.32</span>
+          <span>.48</span>
+          <span>.64</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #1</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #2</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #3</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #4</div>
+          </div>
+        </div>
+      </div>
+
+      <p> We can see that the subnet we were given falls in the .32 - .48 network. Because 192.168.10.32 is the network ID, .33 will be the first host in this network.</p>
+      <p> Since our block size is 16, 32 + 16 gives us 48, which is the start of the next subnet, we'll need to subtract 2 to get the last usable host address. </p>
+      <p> 48 - 2 = .46, our last usable address.</p>
+      <p> Referencing our cheat sheet, we know that a /28 is a 255.255.255.240 subnet mask, so we would assign that to the interfaces as well.</p>
+      <p> Together, we now have:</p>
+      <p> .33 = First usable address, .46 Last usable address, and a .240 subnet mask.</p>
+      <p><b>Answer:</b></p>
+      <ul class="bullet-list">
+        <li>Router A interface: 192.168.10.33 /28</li>
+        <li>Server A: 192.168.10.46 /28</li>
+      </ul>
+    </details>
+    <div style="padding-top: 2rem;"><h2> - Question #3 </h2></div>
+    <p>Which subnet does host 12.120.1.185/25 belong to?</p>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Using our sheet, we know that /25 has a block size of 128.</p>
+      <p>Let's list out the possible subnets:</p>
+      <div style="color: #d4d4d4; background-color: #1e1e1e; padding: 15px; border-radius: 5px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span>.0</span>
+          <span>.128</span>
+          <span>.255</span>
+          <span>&lt;-- Maximum, the next network would be 192.168.2.0/25</span>
+        </div>
+      </div>
+      <p>The host # is .185, which is right in between .128 and .256.</p>
+      <p>So we know that .185 is in the .128 subnet.</p>
+      <p><b>Answer:</b> The host is in the 12.120.1.128 /25 subnet.</p>
+    </details>
+    <div style="padding-top: 2rem;">
+      <h2>- Question #4 </h2>
+      <p>What is the broadcast address of the subnet 192.168.10.64/26?</p>
+    </div>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Using our sheet, /26 = block size of 64.</p>
+      <div style="color: #d4d4d4; background-color: #1e1e1e; padding: 15px; border-radius: 5px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span>.0</span>
+          <span>.64</span>
+          <span>&nbsp;.128</span>
+          <span>.192</span>
+          <span>.256</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #1</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #2</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #3</div>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+            <div>Subnetwork #4</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Since we know our subnet range is .64 - .128 (The start of subnet #3), our last address will be .127. </p>
+      <p><b>Answer:</b> The broadcast address is 192.168.10.127 /26</p>
+    </details>
+
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <div style="padding-top: 0.2rem;">
+      <h3 id="four-three">• 4.3 Applied VLSM Subnetting </h3>
+      <p>The following questions are likely going to be the hardest questions you'll get when first learning how to subnet. </p>
+      <p>You can also expect for these to be the highest ceiling questions on the CCNA 200-301 exam. (<i>however, you can expect them to be rare</i>.) </p>
+      <p>The purpose of these questions is to apply subnetting knowledge to practical network design problems from the ground-up.</p>
+    </div>
+    <div style="padding-top: 0.9rem;">
+      <h2> - Question #1 </h2>
+    </div>
+    <p>You are given 192.168.1.0/24 by your company. You need subnets for:</p>
+    <ul class="bullet-list">
+      <li>Sales = 50 hosts</li>
+      <li>HR = 25 hosts</li>
+      <li>Guest = 10 hosts</li>
+      <li>Admin = 5 hosts</li>
+    </ul>
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>All we'll do for VLSM is use different subnet masks to accommodate for different # of hosts under the same network.</p>
+      <p>For example, if I need 50 hosts, I will have to use a /26, since it has a block size of 64.</p>
+      <p>Since we can only subnet in powers of 2, we can't create a subnet with <i>exactly</i> 50 hosts, but /26 will give us what we need. Apply this to every network, and you're doing VLSM.</p>
+      <div style="padding-top: 0.1rem;">
+        <p><h3>Assigning block sizes:</h3></p>
+        <ul class="bullet-list">
+          <li>For Sales --> /26 (62 usable)</li>
+          <li>For HR --> /27 (30 usable)</li>
+          <li>For Guest --> /28 (14 usable)</li>
+          <li>For Admin --> /29 (6 usable)</li>
+        </ul>
+        <p>That's it. You've determined what subnet masks will be needed, all you need to do is allocate them.</p>
+      </div>
+      <p><b>NOTE:</b> When allocating the subnets, you want to start with the lowest CIDR first, and work your way up, as seen here:</p>
+      <p><b>Answer:</b></p>
+      <p><h3>Subnets:</h3> </p>
+      <ul class="bullet-list">
+        <li><b>Sales</b> --> 192.168.1.0 /26</li>
+        <li><b>HR</b> --> 192.168.1.64 /27</li>
+        <li><b>Guest</b> --> 192.168.1.96 /28</li>
+        <li><b>Admin</b> --> 192.168.1.112 /29</li>
+      </ul>
+    </details>
+
+    <div style="padding-top: 1.5rem;">
+      <h2> - Question #2 </h2>
+    </div>
+    <p>You are given 172.16.0.0/24 by your company. You need subnets for:</p>
+    <ul class="bullet-list">
+      <li>Research = 60 hosts</li>
+      <li>Sales = 30 hosts</li>
+      <li>HR = 25 hosts</li>
+      <li>Support = 12 hosts</li>
+      <li>Admin = 6 hosts</li>
+      <li>Guest = 2 hosts</li>
+    </ul>
+
+    <details>
+      <summary>➤ &nbsp;&nbsp;Explanation</summary>
+      <p>We follow the same process: start with the largest block and work down, assigning subnet masks that meet or exceed the required host count.</p>
+      <p>For example, Research needs 60 hosts. The smallest block that can fit 60 is a /26 (64 total addresses, 62 usable).</p>
+      
+      <div style="padding-top: 0.1rem;">
+        <p><h3>Assigning block sizes:</h3></p>
+        <ul class="bullet-list">
+          <li>Research --> /26 (62 usable)</li>
+          <li>Sales --> /27 (30 usable)</li>
+          <li>HR --> /27 (30 usable)</li>
+          <li>Support --> /28 (14 usable)</li>
+          <li>Admin --> /29 (6 usable)</li>
+          <li>Guest --> /30 (2 usable)</li>
+        </ul>
+        <p>Now allocate them sequentially from 172.16.0.0 onward:</p>
+      </div>
+
+      <p><b>Answer:</b></p>
+      <p><h3>Subnets:</h3> </p>
+      <ul class="bullet-list">
+        <li><b>Research</b> --> 172.16.0.0 /26</li>
+        <li><b>Sales</b> --> 172.16.0.64 /27</li>
+        <li><b>HR</b> --> 172.16.0.96 /27</li>
+        <li><b>Support</b> --> 172.16.0.128 /28</li>
+        <li><b>Admin</b> --> 172.16.0.144 /29</li>
+        <li><b>Guest</b> --> 172.16.0.152 /30</li>
+      </ul>
+    </details>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;">
+    <div style="padding-top: 0.5rem;">
+      <h3 id="beyond">5 . Subnetting beyond /24</h3>
+      <p>The reason I left out these further ranges for later is because they aren't used as prominently in real-world networks and are not required for the CCNA exam, however
+      the method that I introduced applies the exact same. The only caveat is shifting your focus to an earlier octet.</p>
+      <p>You'll typically see subnetting in the /17 - /24 range in larger enterprise networks, and are still a realistic range to know &amp; learn.</p>
+      <p> /1 - /16 however, are much less common and usually reserved for route summarization or ISP allocations.</p> 
+      <p>To expand our use, you'll simply want to list out the CIDR notations once again. As so:</p>
+
+      <div style="padding-top: 0.5rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: center;">
+          <thead>
+            <tr style="background-color: #1e1e1e; color: #fff;">
+              <th>CIDR</th>
+              <th>CIDR</th>
+              <th>CIDR</th>
+              <th>Subnet Mask</th>
+              <th>Block Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>/9</td>
+              <td>/17</td>
+              <td>/25</td>
+              <td>.128</td>
+              <td>128</td>
+            </tr>
+            <tr>
+              <td>/10</td>
+              <td>/18</td>
+              <td>/26</td>
+              <td>.192</td>
+              <td>64</td>
+            </tr>
+            <tr>
+              <td>/11</td>
+              <td>/19</td>
+              <td>/27</td>
+              <td>.224</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>/12</td>
+              <td>/20</td>
+              <td>/28</td>
+              <td>.240</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <td>/13</td>
+              <td>/21</td>
+              <td>/29</td>
+              <td>.248</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>/14</td>
+              <td>/22</td>
+              <td>/30</td>
+              <td>.252</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>/15</td>
+              <td>/23</td>
+              <td>/31</td>
+              <td>.254</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>/16</td>
+              <td>/24</td>
+              <td>/32</td>
+              <td>.255</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="padding-top: 0.5rem;">
+        <p>After laying out the ranges in the table, notice that nothing about the math itself has changed. The only difference is where you start counting from.</p>
+        <p>Here are some important key notes &amp; differences to keep in mind before I give examples:</p>
+      </div>
+      <ul class="bullet-list">
+        <li>In the /17 – /24 range, the same process applies, but instead of breaking down the last octet, you’re now working in the <b>third</b> octet. For example, a /20 STILL has a block size of 16, but it's now in the third octet. Which means you can have networks like 192.168.16.0/20. After 192.168.16.255, it carries over into 192.168.17.0, and continues to be a subnet. It only reaches its limit once you've exceeded the block size in that third octet.</li>
+        <li>For /1 – /16, the method is still identical, except now you’re shifting even further left.</li>
+        <li>Our only major caveat from before is going to be our method of calculating the # of addresses, which I have an explanation for <a href="#host-calculation">here</a>.</li>
+      </ul>
+      <p id="host-calculation"><b>Before, we were limited by the maximum # of addresses in a /24 (255), but now, we can go from 192.168.1.255, into 192.168.2.0, and it continues to be its own subnet.</b></p>
+    </div>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <h3 id="hosts">5.1 Calculating hosts for /1 - /23</h3>
+    <p>The process for calculating hosts in these ranges is extremely intuitive and won't require much thought once you've understood it.</p>
+    <p>It's recommended that you have a calculator for this.</p>
+    <h3> Steps: </h3>
+    <p><b>1</b> - Subtract the CIDR prefix of your subnet mask from 32.</p>
+    <p>For example, given /17 --> 32 - 17 = 15</p>
+    <p><b>2</b> - Then, raise 2 to the power of that result. -&gt; 2^15 = <b>32,768</b> total addresses.</p>
+    <p>If you're wanting to calculate for usable hosts, simply subtract 2 like before.</p> 
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <h3 id="subnetting-20">5.2 Subnetting Questions 2.0 </h3>
+    <p> Here are some example questions for subnetting in these ranges. The structure and nature of the questions all remain the same.</p>
+    <div style="padding-top: 1.2rem;">
+      <h2> - Question #1 </h2>
+      <p> You are configuring a network with 10.0.0.0/18.</p>
+      <p>What is the subnet mask in dotted decimal notation for this network?</p>
+    </div>
+    <details>
+      <summary> ➤ &nbsp;&nbsp;Explanation</summary>
+      <p>Referencing our sheet with the added CIDR notation, we can see that /18 is associated with the .192 subnet mask.</p>
+      <p>Since /18 indicates that we're working with the third octet, the subnet mask will be 255.255.192.0 </p>
+      <p><b>Answer:</b> 255.255.192.0</p> 
+    </details>
+    <div style="padding-top: 2rem;">
+      <h2> - Question #2 </h2>
+      <p> You are asked: "How many total addresses and usable hosts are available in a 172.16.0.0/19 network?"</p>
+      <details>
+        <summary>➤ &nbsp;&nbsp;Explanation</summary>
+        <p>Our process remains the same:</p>
+        <p><b><h4> Step 1: </h4></b> Subtract the CIDR notation itself from 32 (you will always need to do this).</p>
+        <p> 32 - 19 = 13 </p>
+        <p><b><h4> Step 2:</h4> </b> Raise 2 to the power of the answer.</p>
+        <p> Total addresses = 2^13 = 8,192.</p>
+        <p> Subtract 2 for the # of usable hosts.</p>
+        <p> 8,192 - 2 = 8,190</p>
+        <p><b>Answer: There are 8,190 usable hosts for 172.16.0.0/19.</b> </p>
+      </details>
+    </div>
+    <div style="padding-top: 2rem;">
+      <h2> - Question #3 </h2>
+      <p>Given the network 192.168.0.0/22, determine:</p>
+      <ul class="bullet-list">
+        <li>Network Address</li>
+        <li>Broadcast Address</li>
+        <li>Usable Host range</li>
+      </ul>
+      <details>
+        <summary> ➤ &nbsp;&nbsp;Explanation </summary>
+        <p>Step 1 — Identify associated subnet mask:</p>
+        <ul class="bullet-list">
+          <li>Using our sheet --> /22 = 255.255.252.0</li>
+        </ul>
+
+        <p>Step 2 — Identify the block size:</p>
+        <ul class="bullet-list">
+          <li>.252 block size = block size 4</li>
+        </ul>
+
+        <p>Step 3 — Find the network address:</p>
+        <ul class="bullet-list">
+          <p>Let's list out our possible subnetworks:</p>
+          <div style="color: #d4d4d4; background-color: #1e1e1e; padding: 15px; border-radius: 5px;">    
+
+            <!-- First row: subnet boundaries -->
+            <div style="display: flex; justify-content: space-between;">
+              <span>.0</span>
+              <span>.4</span>
+              <span>.8</span>
+              <span>.12</span>
+              <span>.16</span>
+            </div>
+
+            <!-- Second row: ranges -->
+            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+                <div>Subnetwork #1</div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+                <div>Subnetwork #2</div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+                <div>Subnetwork #3</div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <div style="border-top: 1px dashed #888; margin: 0 10px;"></div>
+                <div>Subnetwork #4</div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <p><b>Remember that this is in the 3rd octet.</b></p>
+            <p><b>192.168.X.0</b> </p>
+            <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^</b></p>
+          </div>
+          <p>Now we know that 192.168.4.0 is the start of the next network.</p>
+          <li>So, our network ID = <b>192.168.0.0</b></li>
+        </ul>
+
+        <p>Step 4 — Find the broadcast address:</p>
+        <ul class="bullet-list">
+          <li>Because the next network is 192.168.4.0, the broadcast address will be the previous address.</li>
+          <li>Our subnet covers 192.168.0.0 all the way to 192.168.3.XXX</li>
+          <li>Broadcast = <b>192.168.3.255</b></li>
+        </ul>
+
+        <p>Step 5 — Determine usable host range:</p>
+        <ul class="bullet-list">
+          <li>First usable = Network + 1 = <b>192.168.0.1</b></li>
+          <li>Last usable = Broadcast − 1 = <b>192.168.3.254</b></li>
+        </ul>
+
+        <p><b>Answer:</b><br>
+        Network = 192.168.0.0<br>
+        Broadcast = 192.168.3.255<br>
+        Usable range = 192.168.0.1 – 192.168.3.254</p>
+      </details>
+    </div>
+    <div style="padding-top: 2rem;">
+      <h2> - Question #4 </h2>
+      <p>You are assigned 10.0.0.0/16 and need to create:</p>
+      <ul class="bullet-list">
+        <li>Network A: 500 hosts</li>
+        <li>Network B: 200 hosts</li>
+        <li>Network C: 50 hosts</li>
+      </ul>
+      <p>Assign the appropriate subnets.</p>
+      <details>
+        <summary>➤ &nbsp;&nbsp;Explanation</summary>
+        <div style="padding-top: 1rem;">
+          <p><b>Network A:</b></p>
+          <p> Our usual /24 can only cover 254 hosts, so we'll need to expand into the third octet.</p>
+          <p>If we go down to a /23 (with the block size of 2), this doubles our addresses, into 10.0.0.0 - 10.0.1.255 </p>
+          <p>We can infer from doubling the amount, 255 x 2 = 510, that /23 will be enough to accommodate for the # of needed hosts.</p>
+        </div>
+        <div style="padding-top: 1rem;">
+          <p><b> Network B:</b></p>
+          <p>Since we need 200 hosts, we know we won't need to go into the third octet to accommodate for the amount needed. A single octet of 255 will work.</p>
+          <p>Since a /24 covers 255 without using anymore address space, we will have to use it for Network B.</p>
+        </div>
+        <div style="padding-top: 1rem;">
+          <p><b>Network C:</b></p>
+          <p>Using our sheet, we know the block size that will let us accommodate for at least 50 hosts is /26, so we will use it for Network C</p>
+        </div>
+        <div style="padding-top: 1.2rem;">
+          <h3>Allocation</h3>
+          <p> Starting with the largest subnet first: </p>
+          <p><b>1. Network A: 10.0.0.0/23 --> covers 10.0.0.0 – 10.0.1.255</b></p>
+          <p><b>2. Network B: 10.0.2.0/24 --> covers 10.0.2.0 – 10.0.2.255</b></p>
+          <p><b>3. Network C: 10.0.3.0/26 --> covers 10.0.3.0 – 10.0.3.63</b></p>
+        </div>
+      </details>
+    </div>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
+    <h2 id="closing">6 . Closing Thoughts </h2>
+    <p> I wanted to make this post both to serve as a reference page for people learning to subnet and to highlight my experience with learning how to subnet for the CCNA.</p>
+    <p> Subnetting is often seen as a very intimidating part of networking for many who are first learning, especially when it's primarily taught through rigid, step-by-step procedures that emphasize dogmatic steps over practical intuition and reasoning. Through my own experience preparing for the exam, I came to discover that this simpler method continued to prove itself reasonable and consistent across the board in subnetting exercises. To the point of never even thinking about binary, bits, or needing to write anything down.</p>
+    <p>Subnetting doesn’t <b>have</b> to be a barrier—with a different approach, it becomes a tool and process that can blend seamlessly into your workflow as an engineer or admin.</p>
+    <p>I recommend for those who're still learning, to use as many resources and practice questions as you can—and try to see if you can solve them using solely this method. I'm sure that as you get better, you'll find that you can extract all of the info you need just from practicing this approach. With enough practice, it becomes muscle memory. </p>
+    <p>Thank you to those who took the time to read, I hope it helps!</p>
+    <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;">
+
+    <div style="text-align: center;">
+      <p><b>If you have any questions or suggestions regarding this post, you can contact me <a href="/contact">here.</a></b></p>
+      <p class="signature">Roman Todd&nbsp;&nbsp;  —  &nbsp;&nbsp;08-28-25 </p>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+
+
+</body>
+</html>

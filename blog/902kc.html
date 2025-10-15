@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyocera 902KC: A Setup Guide - Roman Todd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/902kc.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand-column">
+    <a href="../" class="home-link">로만</a>
+    <button class="back-button" onclick="window.location.href='../blog'">blog</button>
+    <button class="back-button" onclick="window.location.href='../contact'">contact</button>
+  </div>
+</header>
+
+<div class="blog-wrapper">
+  <aside class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li>
+        <details>
+          <summary>The Dumbphone Life</summary>
+          <ol>
+            <li><a href="#why">&nbsp;Why The 902kc Is a &nbsp;Popular Choice</a></li>
+          </ol>
+        </details>
+      </li>
+
+      <li>
+        <details>
+          <summary>Service Compatibility & Initial Setup</summary>
+          <ol>
+            <li><a href="#purchasing-options">&nbsp;Purchasing Options</a></li>
+            <li><a href="#sim-setup">&nbsp;Setting up the SIM Card</a></li>
+            <li><a href="#vysor">&nbsp;Using Vysor To &nbsp;Configure The Phone</a></li>
+            <li><a href="#apn">&nbsp;APN Setup (Service)</a></li>
+            <li><a href="#apps">&nbsp;Installing Apps</a></li>
+            <li><a href="#debloat">&nbsp;Debloating The Phone</a></li>
+          </ol>
+        </details>
+      </li>
+
+      <li>
+        <details>
+          <summary>Quality of Life Improvements & Features</summary>
+          <ol>
+            <li><a href="#t9">&nbsp;Improved T9 Typing</a></li>
+            <li><a href="#keymapper">&nbsp;Key Mapper</a></li>
+            <li><a href="#qrcode">&nbsp;Adding QR Code &nbsp;Support</a></li>
+            <li><a href="#hidden-settings">&nbsp;Accessing The Hidden &nbsp;Settings Menu</a></li>
+          </ol>
+        </details>
+      </li>
+
+      <li>
+        <details>
+          <summary>Miscellaneous + Customization Tips</summary>
+          <ol>
+            <li><a href="#custom-menu">&nbsp;Changing App Menu</a></li>
+            <li><a href="#custom-ringtones">&nbsp;Custom Ringtones, &nbsp;Wallpapers, Etc.</a></li>
+            <li><a href="#subdisplay">&nbsp;Custom Subdisplay</a></li>
+            <li><a href="#lockscreen">&nbsp;Custom Lock Screen</a></li>
+            <li><a href="#launchers">&nbsp;Custom Launchers</a></li>
+            <li><a href="#charms">&nbsp;Charms & Extra &nbsp;Accessories</a></li>
+          </ol>
+        </details>
+      </li>
+
+      <li>
+        <details>
+          <summary>Additional Info</summary>
+          <ol>
+            <li><a href="#additional-info">&nbsp;Additional Info</a></li>
+          </ol>
+        </details>
+      </li>
+    </ol>
+  </aside>
+</div>
+
+
+<div class="blog-wrapper">
+  <div class="container">
+    <h1 class="main-heading">Kyocera 902kc/903kc Setup Guide</h1>
+    <p class="post-date">- September 8, 2025</p>
+    <p><i>- Dedicated to <a href="https://cleiona.straw.page/">Cleiona.</a></i></p>
+
+    <div style="padding-top: 0.2rem;">
+      <h2 id="intro">1 . The Dumbphone Life</h2>
+      <p>In recent years, many people have became interested in adopting the use of dumbphones—fully functional cellphones without most of the features of modern smartphones. While a lot of this movement can be attributed to nostalgia, its also seen as a response to the increasing unease among consumers with surveillance, targeted advertising, and constant data collection at the behest of major firms. Above all, though, it reflects a desire to reclaim attention and return to something simpler.</p>
+    </div>
+
+    <p>I first became interested in the Kyocera 902kc after seeing it posted in the <a href="https://www.reddit.com/r/dumbphones/">r/dumbphones</a> subreddit, and found its silver version to be one of the sleekest, well-designed phones frequently posted on the sub. At the time, I was already interested in trying to find the right dumbphone for me, and after around a month of researching and bargaining, I bit the bullet and decided to make it my first dumbphone.</p>
+    <p>At the time of this post, I have been using the phone for around 4 months now, and can confidently say that I've both gotten used to, and reaped the benefits of dumbphone life. I wanted to create this post as a place where I can share all the information that I've accumulated from using the phone and found useful when setting it up centralized together, for the purpose of anyone setting up their phone to follow.</p>
+    <div style="padding-top: 1rem;">
+      <h3 id="why">1.1 Why The 902kc Is a Popular Choice</h3>
+      <p>The 902kc is often referred to as a <i>keitai</i>&nbsp; (携帯). In Japanese, <i>keitai</i>&nbsp; simply means "mobile phone", but the word has since become synonymous with the country's mobile phones from the mid 2000s. This is because while <i>smartphones</i> like Androids, iPhones and Samsungs are now widely used across the world, Japan's market for mobile phones in the late 2000s was significantly more advanced than phones in the rest of the world by comparison.</p>
+
+      <div style="display: flex; align-items: flex-start; gap: 1rem;">
+        <div style="flex: 1;">
+          <p>By the mid 2000s, keitais already had:</p>
+          <ul class="bullet-list">
+            <li>Full-color screens</li>
+            <li>Digital Cameras</li>
+            <li>Mobile Internet that supported apps, shopping, and games</li>
+            <li>Transit card integration and TV tuners</li>
+          </ul>
+        </div>
+
+        <div style="flex: 0 0 350px; margin-top: 0.4rem;">
+          <img
+            src="../assets/images/blog/902kc/img1.jpg"
+            alt="Example of a Japanese keitai phone"
+            style="max-width: 100%;"
+          />
+        </div>
+      </div>
+
+      <p>So when smartphones like the iPhone and Android devices first appeared, they weren’t necessarily seen as upgrades in Japan. They were flashier and more expensive, but nonetheless lacked some of the familiar features that keitais already had—like physical buttons and specific local services.</p>
+      <p>Because of this, Japanese carriers and manufacturers kept producing new keitai models alongside smartphones. They carved out a stable niche for both older users and people who valued reliability and simplicity over novelty — a niche that still exists today, which is why phones like the 902kc are still around.</p>
+      <p>The 902kc became a popular choice in the dumbphone community because of its compatability with common cellular frequency bands in the USA, which most keitais don't support. Allowing people to have the keitai experience outside of Japan.</p>
+    </div>
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;" />
+
+    <h2 id="service-setup">2 . Service Compatability & Initial Setup</h2>
+    <p>Here are some key & important notes about the phone:</p>
+    <ul class="bullet-list">
+      <li>The phone is compatible with FDD-LTE Bands 2 &amp; 4. You will need to use <a href="https://www.cellmapper.net/">this tool</a> to check for coverage in your area.</li>
+      <li>In the USA, the phone has been confirmed to work with the service carriers: T-Mobile, T-Mobile MVNOs (Such as Mint, Boost, Tello), and AT&amp;T.</li>
+      <li>It is known to have issues with Verizon.</li>
+      <li>When purchasing the phone, you <i>must</i> ensure that the phone is UNLOCKED.</li>
+    </ul>
+
+    <p>For european compatability or other carriers in the USA, you will need to research <a href="https://www.reddit.com/r/dumbphones/">r/dumbphones</a>. Not <i>all</i> carriers have been tested as of the time of this post, but many are always trying out the phone and discussing results on the subreddit.</p>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="purchasing-options">2.1 Purchasing Options</h3>
+      <p>Purchasing options for this phone usually boil down to these options:</p>
+      <ul class="bullet-list">
+        <li>Kyoex (Higher Prices)</li>
+        <li>Ebay (Recommended)</li>
+        <li>Buyee</li>
+        <li>Zenmarket</li>
+      </ul>
+    </div>
+
+    <p>Using a proxy, you can also check out other japanese vendors like yahoo auctions or mercari. I personally purchased mine off ebay for around $140 (Mint Condition). However, you can most definitely get a better deal than I did.</p>
+    <p>The phone comes in 3 colors: Black, Silver and Pink.</p>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="sim-setup">2.2 Setting up the SIM Card</h3>
+      <p>On the bottom of the phone by the charging port, there is a notch to help take off the back of the phone, the back can simply be taken right off by using the notch with your fingernail.</p>
+
+      <div style="display: flex; gap: 1rem; width: 100%; max-width: 600px;">
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img2.jpeg"
+            alt="Kyocera 902KC notch for removing back cover"
+            style="width: 100%; height: auto; border-radius: 6px;"
+          />
+          <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 0.5; margin-top: 0.1rem;">
+            Phone after the back has been removed.
+          </div>
+        </div>
+
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img3.jpeg"
+            alt="Kyocera 902KC SIM card slot location"
+            style="width: 100%; height: auto; border-radius: 6px;"
+          />
+          <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 0.5; margin-top: 0.1rem;">
+            SIM card slot location.
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top: 1rem;">
+      <p>From the back, you can take out the battery by the arrow indication and insert your SIM by lifting the yellow shield and inserting it to the right.</p>
+      <p>In many cases, the phone will work right out of the box without additional setup. In other cases, you will additionally need to tweak with the phone settings to get phone service to work. I'll demonstrate in section <a href="#apn">2.4</a> how you can get the phone to work in the latter case, as well as enforcing 4G compatability & VoLTE.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="vysor">2.3 Using Vysor To Configure The Phone (Recommended)</h3>
+      <p><a href="https://vysor.io">Vysor</a> is an open-source application that allows you to mirror &amp; control your phone from your computer.</p>
+      <p>Vysor is <i>necessary</i> to access the <a href="#hidden-settings">hidden</a> settings of the phone and additionally saves you immense time when typing passwords and configuring apps on the phone.</p>
+      <p>Because of this, I highly recommend that you use Vysor anytime you're doing thorough configuration & customization on the phone. It can additionally allow you to copy and paste large amounts of text into your phone, which will save you tons of time when configuring things like APN settings, and logging into apps.</p>
+      <p>Here is how you can configure the phone to use Vysor:</p>
+
+      <div style="display: flex; align-items: flex-start; gap: 1rem;">
+        <div style="flex: 1; margin: 0;">
+          <p style="margin: 0.5rem 0;">1. On the home screen, press the middle button to access applications, navigate to the Settings app &nbsp;--&gt; About Phone &nbsp;--&gt; Build number.</p>
+          <p style="margin: 0.5rem 0;">2. On the build number option, press the middle select button to continuously press/select the option until it notifies you that developer settings are enabled.</p>
+          <p style="margin: 0.5rem 0;">3. Press the button on the left of the power button to go back, and then navigate to Developer options &nbsp;--&gt; Enable USB debugging.</p>
+          <p style="margin: 0.5rem 0;">4. After enabling, connect the phone to your PC via the charging port and click "Allow" on the prompt. Leave the phone flipped open when connected to your PC.</p>
+        </div>
+
+        <div style="flex: 0 0 30%; text-align: center; margin-top: -3rem;">
+          <img
+            src="../assets/images/blog/902kc/img4.png"
+            alt="Example: enabling USB debugging on the 902KC"
+            style="width: 100%; height: auto; border-radius: 5px;"
+          />
+          <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 0.4;">
+            Screenshot of Vysor output
+          </div>
+        </div>
+      </div>
+
+      <p>After this, you can download and use the phone with Vysor, make sure that after you click "View Device" in Vysor, that you click OK on the prompt on your phone. You can now control the phone using Vysor.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="apn">2.4 APN Setup (Service)</h3>
+      <p>Configuring APN is crucial for data to connect to your carrier's network. It functions as a gateway for mobile internet and MMS. It is also needed to use VoLTE. As well as enforcing 4G use.</p>
+      <p>Configuring APN on the 902kc is very straightforward:</p>
+        <p>1. From settings, navigate to Wireless/Network &nbsp;--&gt; Cellular networks &nbsp;--&gt; Access Point Names.</li>
+        <p>2. Click "Menu" on Vysor (Mail button on phone) &nbsp;--&gt; New APN.</li>
+        <p>3. Search Online for your Carrier's APN settings.</li>
+        <p>4. Fill out & Copy all of the settings provided by your carrier to the phone and click "Save".</li>
+        <p>5. Navigate back to Access Point Names and make sure it's enabled.</li>
+      <p>SMS should work now along with 4G service. If for whatever reason you still cannot make calls or use the phone with mobile service, make sure your APN settings are up-to-date and correct.</p>
+      <p style="color: gray;"><i>In some cases, users have reported having persistent issues with using VoLTE after changing APN settings. If you're having this issue, there's a detailed guide <a href="https://www.reddit.com/r/dumbphones/comments/179vreg/some_personal_notes_on_configuring_the_kyocera/">here</a> by u/VVVVVorbis on reddit, along with other great tips for the phone. Credits to them.</i></p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="apps">2.5 Installing Apps</h3>
+      <p>Installing apps on the 902kc requires you to <a href="https://en.wikipedia.org/wiki/Sideloading">sideload</a> them.</p>
+      <p>You can sideload apps onto the phone with APK files easily using sideloading software. I personally use <a href="https://webadb.com/">this</a>. Refer to the instructions of whatever application you're using when sideloading apps.</p>
+      <p>For APKs, you can use really any source you like. Common ones are:</p>
+      <ul class="bullet-list">
+        <li>F-Droid (Recommended)</li>
+        <li>Aurora Store</li>
+        <li>APKMirror</li>
+        <li>APKPure</li>
+      </ul>
+
+      <p><i>Recommended</i>  apps &amp; alternatives for the Kyocera 902kc are:</p>
+      <ul class="bullet-list">
+        <li>Quik SMS (Messaging/Texting)</li>
+        <li>Spotify Lite (Music Streaming)</li>
+        <li>Musicolet (Local Music)</li>
+        <li>Organic Maps, Waze (Maps &amp; Navigation)</li>
+        <li>Aliucord (Discord)</li>
+        <li>Instagram Lite (Instagram)</li>
+        <li>Fairemail (Email)</li>
+        <li>Via (Web Browser)</li>
+      </ul>
+
+      <p>NOTE: Because the phone runs Android ver. 8, you will sometimes have to find app versions that support &amp; are compatible with android 8.</p>
+      <p>For example, I use alarmy for my alarm. The version that I use is a very old version from 2022. Feel free to mess around and download any apps that you'd like and experiment to see which versions or forks work efficiently. This is also why I recommend using F-Droid, as it reduces uncertainty with app compatability.</p>
+      <p style="color: gray;"><i>NOTE:</i>&nbsp; If you're having issues accessing or finding the apps after sideloading them to the phone, refer to section <a href="#custom-menu">4.1</a>, where I explain how to both find and add them to the default app menu.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="debloat">2.6 Debloating The Phone</h3>
+      <p>"Debloating" refers to the process of removing &amp; disabling pre-installed software and features that run in the background of the phone even when you aren't using them.</p>
+      <p>The 902kc is a very bloated phone, and one of it's weakest areas when used as a daily-driver is it's noticable battery drain.</p>
+      <p>Thankfully, this problem can be mitigated by debloating, and I recommend that anyone who owns the phone in the USA or EU does so.</p>
+      <p><i>Warning:</i> Removing packages you are unsure of is <i>risky</i>, please be catious and <b>do not</b> remove something if you don't know what it is.</p>
+      <p>You'll need to download <a href="https://github.com/0x192/universal-android-debloater/releases">Universal Android Debloater</a>.</p>
+
+      <p>Packages that are known and safe to remove:</p>
+      <ul class="bullet-list">
+        <li>com.mobisystems.office.kyocera (Stock japanese office app)</li>
+        <li>jp.kyocera.charactercheck (Kanji grammar check)</li>
+        <li>jp.kyocera.kc_fmradio (Japan FM radio app)</li>
+        <li>jp.kyocera.weather (Broken weather app)</li>
+        <li>jp.softbank.mb.parentalcontrols (Parental controls)</li>
+        <li>jp.softbank.mb.mimamorimap (Broken map app)</li>
+        <li>jp.co.fsi.fs1seg (Japan TV app)</li>
+      </ul>
+    </div>
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;" />
+
+    <h2 id="qol">3 . Quality of Life Improvements & Features</h2>
+    <p>Out of the box and using stock features, the 902kc can be a useful and practical phone experience for a lot of people. However there are a few glaring issues and inconveniences that many have experienced with the phone, such as the lack of proper T9 predictive typing and the ability to control things like audio, brightness, and other inconsistencies like functioning MMS.</p>
+    <p>These are all common issues that thankfully, workarounds have all been found for, and the process to set them up is very simple &amp; straightforward. I'll be going over these in this section of this post.</p>
+
+    <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 0.5; margin-top: 1.5rem;">
+      <p>(All software mentioned in this section is open-source! ✔)</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="t9">3.1 Improved T9 Typing</h3>
+      <p><a href="https://github.com/sspanak/tt9">TT9</a> is a custom keyboard application for android devices to bring 'traditional' T9 typing and predictive text to devices that don't support it by stock.</p>
+      <p>On the 902kc, TT9 is a must-have addon that will both improve your typing experience and make it 2x faster. The stock keyboard is <i>extremely</i> slow by comparison.</p>
+      <p> Tip: Enabling the "alternative suggestion scrolling method" in TT9 under Appearance --&gt; Compatability is needed for fixing unwanted cursor behaivor.</p>
+      <p style="color: gray;"><i>NOTE:</i>&nbsp;&nbsp;Some users have reported being locked out of their phone after installing TT9 with lockscreen password enabled. If you have a passcode enabled, either remove it, or simply be prepared to use Vysor if you're unlucky.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="keymapper">3.2 Key Mapper</h3>
+      <p><a href="https://github.com/keymapperorg/KeyMapper">KeyMapper</a> is an application that allows you to map custom keybindings on your phone. KeyMapper is extremely useful &amp; important to have when using the 902kc.</p>
+      <p>Key Mapper will allow you to:</p>
+      <ul class="bullet-list">
+        <li>Adjust volume</li>
+        <li>Change brightness</li>
+        <li>Set any other custom keybindings that you'd like</li>
+      </ul>
+    </div>
+
+    <p>As it pertains to the 902kc, here are the settings that I personally use:</p>
+    <ul class="bullet-list">
+      <li>Double pressing call button -&gt; volume up</li>
+      <li>Pressing call button once -&gt; volume down</li>
+      <li>Triple pressing TV button -&gt; decrease brightness</li>
+      <li>Pressing TV button once -&gt; Increase brightness</li>
+    </ul>
+
+    <div style="padding-top: 1.8rem;">
+      <h3 id="qrcode">3.3 Adding QR Code Support</h3>
+      <p>This is a much smaller addition, but can help a lot in times where it's needed.</p>
+      <p>The app <a href="https://github.com/wewewe718/QrAndBarcodeScanner?tab=readme-ov-file">QR &amp; Barcode Scanner</a> by wewewe718 on GitHub works well with the phone and will grant you the ability to scan QR codes.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+
+        <div style="flex: 1;">
+          <h3 id="hidden-settings">3.4 Accessing The Hidden Settings Menu</h3>
+          <p>This is a feature that anyone configuring the phone should be aware and take advantage of.</p>
+          <p>By controlling the phone with Vysor while it’s on the lock screen, you can hold click and swipe down on the status bar to access the notification menu.</p>
+          <p>From here, you can click the settings cog to access the hidden settings.</p>
+          <p>There’s a lot you can do from this menu, but here are the most notable:</p>
+
+          <ul class="bullet-list">
+            <li>Turn off &amp; on print service (turning off will increase battery performance)</li>
+            <li>Configure per app notifications, permissions, and disable background services (great for battery)</li>
+            <li>Enable the hidden auto-rotate feature</li>
+            <li>Change font size from a much larger range than in the default app</li>
+            <li>Enable night light (screen tinting)</li>
+            <li>Other smaller misc. options not found in the default settings app</li>
+          </ul>
+        </div>
+
+        <div style="flex: 0 0 30%; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img5.png"
+            alt="Hidden settings menu access"
+            style="width: 100%; height: auto; border-radius: 6px; margin-bottom: 0rem;"
+          />
+          <img
+            src="../assets/images/blog/902kc/img6.png"
+            alt="Hidden settings options"
+            style="width: 100%; height: auto; border-radius: 6px;"
+          />
+        </div>
+      </div>
+    </div>
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 0px 0;" />
+
+    <div style="padding-top: 1.2rem">
+      <h2 id="misc">4 . Miscellaneous + Customization Tips</h2>
+      <p>This section is dedicated to highlighting some of the 902kc's unique features to streamline your experience and make the phone more enjoyable &amp; efficient for everyday use.</p>
+    </div>
+
+    <div style="padding-top: 1rem">
+      <h3 id="custom-menu">4.1 Changing App Menu</h3>
+      <p>You can create your own custom app menu, style, and font size by pressing the mail button (for "Menu") on the app screen.</p>
+      <p>On each menu option you can choose between "Medium" and "Large" sized fonts.</p>
+
+      <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img7.png"
+            alt="My Custom Menu"
+            style="width: 100%; height: auto; border-radius: 6px;"
+          />
+          <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 1; padding-top: 0px;">
+            My personal app menu
+          </div>
+        </div>
+
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img8.png"
+            alt="Font size selection in app menu"
+            style="width: 100%; height: auto; border-radius: 6px;"
+          />
+          <div style="color: gray; font-style: italic; font-size: 1rem; line-height: 1; margin-top: 0rem;">
+            Alternative menu style
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding-top: 1rem">
+      <p>You can add apps to your custom menu by pressing the globe button for "Edit". From here, you can also find all of your sideloaded apps.</p>
+    </div>
+
+    <div style="padding-top: 1rem">
+      <h3 id="custom-ringtones">4.2 Custom Ringtones, Wallpapers, Etc.</h3>
+      <p>You can import any ringtones, wallpaper images, music etc by connecting the phone via USB to your PC. Simply drop the files in their respective folders (or create folders if they don't exist). You should then be able to see them when changing any of these options natively on the phone.</p>
+    </div>
+
+    <div style="padding-top: 1rem">
+      <h3 id="subdisplay">4.3 Custom Subdisplay</h3>
+      <p>You can customize the sub-display on the front of the phone by navigating to Settings &nbsp;--&gt; Wallpaper/Display &nbsp;--&gt; Sub display.</p>
+      <p>You'll have the choice between 3 options:</p>
+      <ul class="bullet-list">
+        <li>Big - Displays Time</li>
+        <li>Normal - Displays Battery + Time</li>
+        <li>Small - Displays Time + Date</li>
+      </ul>
+    </div>
+
+    <div style="padding-top: 1.5rem">
+      <h3 id="lockscreen">4.4 Custom Lock Screen</h3>
+      <p>You can customize the lockscreen by pressing up on the d-pad on the lockscreen.</p>
+      <p>The phone lets you customize widgets, apps, and custom colors for the "Digital clock large" option.</p>
+
+      <div style="display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; text-align: center;">
+        <div style="flex: 1;">
+          <img src="../assets/images/blog/902kc/img9.png" style="width: 100%; height: auto; border-radius: 3px;" alt="" />
+        </div>
+        <div style="flex: 1;">
+          <img src="../assets/images/blog/902kc/img10.png" style="width: 100%; height: auto; border-radius: 3px;" alt="" />
+        </div>
+      </div>
+    <p>You can also hide the "I" "II" "III" custom key buttons by going to Settings --> Custom key and disabling "Display on Home screen". They will still function as intended.</p>
+    </div>
+
+    <div style="padding-top: 0.5rem;">
+      <h3 id="launchers">4.5 Custom Launchers</h3>
+      <p>You can use custom launchers with the phone, however this endeavor may require heavy tweaking to get it to work efficiently with the phone.</p>
+      <p>I personally use the stock launcher since it works best with the phone and has button functions that natively work. As someone who uses the 902kc as a daily driver, custom launchers drain too much battery &amp; take up too much space for my use-case.</p>
+      <p>Launchers confirmed to work with the phone:</p>
+      <ul class="bullet-list">
+        <li><a href="https://www.reddit.com/r/dumbphones/comments/1eu6miu/after_hours_i_finally_customized_my_902kc/">Microsoft Launcher</a></li>
+        <li><a href="https://www.reddit.com/r/dumbphones/comments/1g5avyw/thinking_on_getting_rid_of_my_904kc/">Nova</a></li>
+        <li><a href="https://www.reddit.com/r/dumbphones/comments/1iuzx75/kyocera_digno_902kc_look/">+HOME</a></li>
+        <li><a href="https://www.reddit.com/r/dumbphones/comments/1key9tt/the_a202kc902kc_a203kc903kc_master_guide/">Niagara</a></li>
+      </ul>
+      <p>Credits to all the redditors for testing &amp; posting about these, as I have not tested them myself.</p>
+    </div>
+
+    <div style="padding-top: 1rem;">
+      <h3 id="charms">4.6 Charms &amp; Extra Accessories</h3>
+      <p>You can add <a href="https://en.wikipedia.org/wiki/Mobile_phone_charm">keitai straps</a> &amp; charms to the phone by taking off the back. There is a hole on the side of the phone connecting to a small "hook" to wrap your strap around. You will need to insert the strap from the side. Having tweezers can help for this.</p>
+
+      <div style="display: flex; gap: 1rem; width: 100%;">
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="../assets/images/blog/902kc/img11.jpeg"
+            alt="Kyocera 902KC notch for removing back cover"
+            style="width: 43%; height: auto; border-radius: 6px;"
+          />
+        </div>
+      </div>
+
+      <p>Mine is a simple strap with a lobster clasp at the end to add accessories. I don't personally use it though.</p>
+      <p>There is also an official charging cradle available for the phone: <a href="https://r.r10s.jp/ran/img/1001/0004/549/046/091/468/10010004549046091468_1.jpg">KYEAZ1</a> which can be found on Zenmarket and other japanese vendor sites.</p>
+      <p>The cradle is usually listed under "純正品 卓上ホル" or "純正品 卓上ホル KYEAZ1" and can be found for around $10-$20.</p>
+      <p>If you happen to be in Japan, you can also sometimes find them in BicCamera stores (which I was able to confirm!)</p>
+    </div>
+
+    <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;" />
+
+    <h2 id="additional-info">5 . Additional Info</h2>
+    <p>There are numerous other small things you can do with the phone, but this post aims to highlight the more important and significant ones when setting it up.</p>
+    <p>I <i>highly</i> recommend anyone needing more specific advice regarding the phone to research or start a post on the <a href="https://www.reddit.com/r/dumbphones/">r/dumbphones</a> subreddit. It is by far the most up-to-date and useful resource for all things dumbphone related. With the phone's rising popularity, <i>a lot</i> of questions regarding the phone have been answered in some way.</p>
+    <p>For anyone with questions regarding my specific setup, or this post, you can feel free to visit my <a href="/contact">contact</a> page. I answer my messages when I'm available.</p>
+   <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;">
+
+     <div style="text-align: center;">
+       <p class="signature">Roman Todd &nbsp;&nbsp;— &nbsp;&nbsp;09-08-25</p>
+     </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

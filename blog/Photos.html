@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> 「 photos 」 - Roman Todd </title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/photos.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="brand-column">
+      <a href="../" class="home-link">로만 </a>
+      <button class="back-button" onclick="window.location.href='../blog'">blog</button>
+      <button class="back-button" onclick="window.location.href='../contact'">contact</button>
+    </div>
+  </header>
+
+<div style="text-align: center;">
+<h2>  「 photos 」 </h2>
+</div>
+
+  <section class="photo-section">
+    <h2>Personal</h2>
+    <div class="masonry">
+
+
+
+ <div class="photo-card">
+            <img src="../assets/images/my-photos/img4.jpg">
+          </div>
+
+<div class="photo-card">
+          <img src="../assets/images/my-photos/img19.jpg">
+	  <p class="caption">My weekday carry</p>
+
+         </div>
+
+
+
+ <div class="photo-card">
+       <img src="../assets/images/my-photos/img6.jpg">
+     </div>
+
+<div class="photo-card">
+           <img src="../assets/images/my-photos/img23.jpg" alt="Tōgō Shrine Tokyo">
+           <p class="caption">Me at the Togo Shrine in Harajuku, Japan</p>
+         </div>
+
+
+ 	  <div class="photo-card">
+              <img src="../assets/images/my-photos/img5.jpg">
+            </div>
+
+<div class="photo-card">
+               <img src="../assets/images/my-photos/img12.jpg">
+             </div>
+
+
+
+<div class="photo-card">
+               <img src="../assets/images/my-photos/img15.JPG">
+             </div>
+
+
+<div class="photo-card">
+               <img src="../assets/images/my-photos/img17.jpg">
+             </div>
+
+
+<div class="photo-card">
+          <img src="../assets/images/my-photos/img21.jpg">
+        </div>
+
+  </section>
+
+  <!-- Inspiration Section -->
+  <section class="photo-section">
+    <h2>Inspo</h2>
+       <div class="masonry inspiration">
+
+
+      <div class="photo-card">
+        <img src=../assets/images/inspo/img12.png>
+      </div>
+
+        <div class="photo-card">
+          <img src=../assets/images/inspo/img3.jpg>
+        </div>
+
+
+        <div class="photo-card">
+          <img src=../assets/images/inspo/img4.jpg>
+        </div>
+
+ <div class="photo-card">
+            <img src=../assets/images/inspo/img5.jpg>
+          </div>
+
+
+ <div class="photo-card">
+            <img src=../assets/images/inspo/img8.png>
+          </div>
+
+
+  <div class="photo-card">
+           <img src="../assets/images/inspo/img11.jpg">
+         </div>
+
+  
+
+<div class="photo-card">
+            <img src=../assets/images/inspo/img16.png>
+          </div>
+
+<div class="photo-card">
+           <img src=../assets/images/inspo/img17.jpg>
+         </div>
+
+
+<div class="photo-card">
+              <img src=../assets/images/inspo/img9.png>
+            </div>
+
+    </div>
+</div>
+  </section>
+
+
+<section class="photo-section">
+  <h2>¢ Extras </h2>
+  <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+
+    <div style="flex: 1 1 27%;">
+      <iframe src="https://www.youtube.com/embed/kXxURf5InJ8"
+              style="width:100%; aspect-ratio:16/9; border:1px solid #30363d;"
+              frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+
+    <div style="flex: 1 1 33%;">
+      <iframe src="https://www.youtube.com/embed/zdy6K0cEzsY"
+              style="width:100%; aspect-ratio:16/9; border:1px solid #30363d;"
+              frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+
+<div style="flex: 1 1 39%; display:flex; justify-content:flex-end; margin-top:1rem;">
+  <iframe src="https://www.youtube.com/embed/cEIpS6xGSE4"
+          style="width:34%; aspect-ratio:16/9; border:1px solid #30363d; border-radius:0;"
+          frameborder="0"
+          allowfullscreen></iframe>
+</div>
+
+
+
+  </div>
+</section>
+
+
+
+
+  <footer class="footer">
+    <p class="signature">Roman Todd&nbsp;&nbsp; — &nbsp;&nbsp;2025</p>
+  </footer>
+
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<script>
+  // Open lightbox on image click
+  const images = document.querySelectorAll('.masonry img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const close = document.querySelector('.lightbox .close');
+
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;
+    });
+  });
+
+  // Close on X click
+  close.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  // Close on outside click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

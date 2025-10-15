@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Index of /blog </title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      background-image: url('/assets/static/bg3.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      padding: 20px;
+    }
+    .header {
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 500;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      text-align: left;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      font-weight: 500;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    td {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .file-icon {
+      color: #8e8e93;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+    .folder-icon {
+      color: #0366d6;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+    .parent {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .indent {
+      padding-left: 30px;
+    }
+    .footer {
+      padding: 10px 20px;
+      color: #6e6e6e;
+      font-size: 12px;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header"><h1>roman's stuff</h1></div>
+    <table>
+      <thead>
+        <tr><th style="width: 60%">Filename</th><th style="width: 15%">Size</th><th style="width: 25%">Date</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="../" class="parent"><span class="folder-icon">📁</span> ..</a></td><td>-</td><td>-</td></tr>
+        <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('networking-dropdown', 'networking-icon')"><span class="folder-icon" id="networking-icon">📁</span> Projects</a></td><td>-</td><td>-</td></tr>
+      </tbody>
+      <tbody id="networking-dropdown" style="display: none;">
+        <tr><td class="indent"><a href="DNS.html"><span class="file-icon">📄</span> Building a Self-Hosted DNS Server To Maximize Productivity</a></td><td>24 KB</td><td>22-Sep-2025</td></tr>
+        <tr><td class="indent"><a href="Dotfiles.html"><span class="file-icon">📄</span> Automating my Linux Environment (Dotfiles + Install Script)</a></td><td>7 KB</td><td>15-Jul-2025</td></tr>
+        <tr><td class="indent"><a href="../placeholder/"><span class="file-icon">📄</span> Korean-CLI Showcase + Release</a></td><td>-</td><td>-</td></tr>
+        <tr><td class="indent"><a href="../placeholder/"><span class="file-icon">📄</span> My Home Emulation Machine & FTP Server</a></td><td>-</td><td>-</td></tr>
+        <tr><td class="indent"><a href="Future.html"><span class="file-icon">📄</span>&nbsp;☕︎ 「 Current Projects & Future Plans 」 </a></td><td>3 KB</td><td>N/A</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('tech-dropdown', 'tech-icon')"><span class="folder-icon" id="tech-icon">📁</span> Writeups</a></td><td>-</td><td>-</td></tr>
+      </tbody>
+      <tbody id="tech-dropdown" style="display: none;">
+        <tr><td class="indent"><a href="Subnetting.html"><span class="file-icon">📄</span> A Practical Subnetting Guide</a></td><td>38 KB</td><td>28-Aug-2025</td></tr>
+        <tr><td class="indent"><a href="902kc.html"><span class="file-icon">📄</span> Kyocera 902KC Setup Guide</a></td><td>28 KB</td><td>08-Sep-2025 </td></tr>
+        <tr><td class="indent"><a href="Workflow.html"><span class="file-icon">📄</span> My Productivity Workflow + Home Lab Workflow</a></td><td>17 KB</td><td>23-Sep-2025</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('personal-dropdown', 'personal-icon')"><span class="folder-icon" id="personal-icon">📁</span> Personal</a></td><td>-</td><td>-</td></tr>
+      </tbody>
+      <tbody id="personal-dropdown" style="display: none;">
+        <tr><td class="indent"><a href="Photos.html"><span class="file-icon">📄</span> Photos</a></td><td>4 KB</td><td>28-Jul-2025</td></tr>
+        <tr><td class="indent"><a href="https://roman-xo.github.io/firefox-start-page/"><span class="file-icon">📄</span> Firefox Splash Screen</a></td><td>4 KB</td><td>08-Aug-2025</td></tr>
+      </tbody>
+    </table>
+    <div class="footer">generated by roman | last updated: 23-Sep-2025</div>
+  </div>
+  <script>
+    function toggleDropdown(id, iconId) {
+      const dropdown = document.getElementById(id);
+      const icon = document.getElementById(iconId);
+      const isOpen = dropdown.style.display === 'table-row-group';
+      dropdown.style.display = isOpen ? 'none' : 'table-row-group';
+      icon.textContent = isOpen ? '📁' : '📂';
+    }
+  </script>
+</body>
+</html>
