@@ -388,3 +388,34 @@ img {
     transform-origin: top center;
   }
 }
+
+@media (max-width: 800px) {
+  section.photo-section:last-of-type > div {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  section.photo-section:last-of-type > div > div {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+  }
+
+  section.photo-section:last-of-type iframe {
+    width: 100% !important;
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  section.photo-section:last-of-type {
+    transform: scale(1);
+    padding: 0 0.5rem;
+  }
+}
