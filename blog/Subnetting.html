@@ -57,7 +57,7 @@
 
     <p>However, a criticism that the NetAcad curriculum often receives is for its emphasis on rote procedures over conceptual understanding. Many topics, including subnetting, are presented in a prescriptive, step-by-step format that prioritizes passing the exam rather than fostering a deeper comprehension of how networks operate in practice.</p>
 
-    <p>The traditional subnetting approach in NetAcad relies heavily on binary conversion and bitwise operations. While this is a&nbsp;<i>technically</i>&nbsp; correct way of understanding subnetting, it doesn't have any practical utility or value for a real network engineer. Most concepts that are taught in NetAcad are things I could find a way to do on the spot—and in my head. Subnetting was the first and one of the only challenges that couldn't receive this same treatment.</p>
+    <p>The traditional subnetting approach in NetAcad relies heavily on binary conversion and bitwise operations. While this is a&nbsp;<i>technically</i>&nbsp; correct way of understanding subnetting, it doesn't have any practical utility or value for a real network engineer. Most concepts that are taught in NetAcad are things I could find a way to do on the spot, in my head. Subnetting was the first and one of the only challenges that couldn't receive this same treatment.</p>
 
     <p>This is the conventional method that many beginners are taught: </p>
 
@@ -102,16 +102,17 @@ Network  =    11000000.10101000.00001010.01000000  →  192.168.10.64
     </div>
     <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
     <h2 id="why">2 . Why This Method Is Inefficient</h2>
-    <p>While the traditional subnetting process isn’t “wrong” ,  it’s just unnecessarily complex for most real-world situations. Here’s why:</p>
+    <p>While the traditional subnetting process isn’t <i>wrong</i>, it’s just unnecessarily complex for most real-world situations. Here’s why:</p>
     <ul class="bullet-list">
-      <li><b>Excessive binary conversion</b> – Converting every octet of an IP address and subnet mask into binary, then back into decimal, adds steps that don’t contribute to the final answer once you understand how subnetting works.</li>
-      <li><b>Error-prone under time pressure</b> – Manual binary-to-decimal conversions increase the chance of small mistakes that throw off the entire calculation, especially during an exam or live scenario.</li>
-      <li><b>Slower scaling for multiple networks</b> - If you’re calculating ranges for dozens of subnets, the traditional method forces you to repeat unnecessary binary work for each one.</li>
-      <li><b>Doesn't match modern workflows</b> - In real network environments, quick mental math or automated tools are going to be preferred over step-by-step binary calculations, so it's only relevant within a teaching environment.</li>
+      <li>Excessive binary conversion – Converting every octet of an IP address and subnet mask into binary, then back into decimal, adds steps that don’t contribute to the final answer once you understand how subnetting works.</li>
+      <li>Error-prone under time pressure – Manual binary-to-decimal conversions increase the chance of small mistakes that throw off the entire calculation, especially during an exam or live scenario.</li>
+      <li>Slower scaling for multiple networks - If you’re calculating ranges for dozens of subnets, the traditional method forces you to repeat unnecessary binary work for each one.</li>
+      <li>Doesn't match modern workflows - In real network environments, quick mental math or automated tools are going to be preferred over step-by-step binary calculations, so it's only relevant within a teaching environment.</li>
     </ul>
     <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
     <h2 id="method">3 .  My Alternative </h2>
-    <p>The purpose of this post is to demonstrate how one can effectively perform subnetting and tackle a wide range of networking scenarios while keeping the most practical and realistic value. The method I'll be showing leverages a simple, memorized set of block sizes that can be used to quickly identify subnet masks, usable ranges, and broadcast addresses. By using this approach, network professionals can handle both exam-style questions and real-world network design or troubleshooting tasks with very minimal calculation. I'm going to start by showcasing how you can easily perform this starting with /25 - /32, and later on, for other ranges going into the third and second octet.</p>
+    <p>The main purpose of this post is to demonstrate how one can both effectively perform subnetting and tackle a wide range of networking questions/scenarios while maximizing the most <i>practical</i> and realistic value. The method I'll be showing leverages a simple, memorized set of block sizes that can be used to quickly identify subnet masks, usable ranges, and broadcast addresses.</p>
+<p>I'll start this section by showcasing how you can perform this starting with /25 - /32, and later on, for other ranges going into the third and second octet.</p>
     <div style="text-align: center; padding-top: 0.5rem;">
       <p>Here's the step by step guide for understanding it:</p>
       <div style="padding-top: 10px;">
@@ -527,7 +528,7 @@ Network  =    11000000.10101000.00001010.01000000  →  192.168.10.64
     <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;">
     <div style="padding-top: 0.5rem;">
       <h3 id="beyond">5 . Subnetting beyond /24</h3>
-      <p>The reason I left out these further ranges for later is because they aren't used as prominently in real-world networks and are not required for the CCNA exam, however
+      <p>The reason I left out these further ranges for later is because you're less likely to come across them in beginner subnetting courses, and are not required for the CCNA exam. However
       the method that I introduced applies the exact same. The only caveat is shifting your focus to an earlier octet.</p>
       <p>You'll typically see subnetting in the /17 - /24 range in larger enterprise networks, and are still a realistic range to know &amp; learn.</p>
       <p> /1 - /16 however, are much less common and usually reserved for route summarization or ISP allocations.</p> 
@@ -772,7 +773,7 @@ Network  =    11000000.10101000.00001010.01000000  →  192.168.10.64
     </div>
     <hr style="border: none; height: 1px; background-color: gray; margin: 30px 0;">
     <h2 id="closing">6 . Closing Thoughts </h2>
-    <p> I wanted to make this post both to serve as a reference page for people learning to subnet and to highlight my experience with learning how to subnet for the CCNA.</p>
+    <p> I wanted to make this post both to serve as a reference page for people learning to subnet and to highlight some of the difficulties and problems I had with learning how to subnet using NetAcad.</p>
     <p> Subnetting is often seen as a very intimidating part of networking for many who are first learning, especially when it's primarily taught through rigid, step-by-step procedures that emphasize dogmatic steps over practical intuition and reasoning. Through my own experience preparing for the exam, I came to discover that this simpler method continued to prove itself reasonable and consistent across the board in subnetting exercises. To the point of never even thinking about binary, bits, or needing to write anything down.</p>
     <p>Subnetting doesn’t <b>have</b> to be a barrier—with a different approach, it becomes a tool and process that can blend seamlessly into your workflow as an engineer or admin.</p>
     <p>I recommend for those who're still learning, to use as many resources and practice questions as you can—and try to see if you can solve them using solely this method. I'm sure that as you get better, you'll find that you can extract all of the info you need just from practicing this approach. With enough practice, it becomes muscle memory. </p>
