@@ -52,9 +52,8 @@ ul {
 .bullet-list-2 li {
   margin: 0;
   padding-left: 1.2rem;
-  text-align: left;
   list-style-type: disc;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .tall-lines {
   line-height: 37px;
