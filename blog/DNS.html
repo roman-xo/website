@@ -373,7 +373,7 @@ utility within my home environment. What struck me as being the most important i
         —a recursive, caching DNS resolver. Using Unbound allows my setup to query root DNS servers directly, instead of forwarding requests to Google or any other upstream providers.
        </p>
        <p style="padding-left: 1px; width: 220%;">
-        While Pi-hole alone grants me DNS control, by default it doesn't provide anything outside of that. It will still use external servers to resolve domains. Using unbound ensures that the service is officially mine.
+        While Pi-hole alone grants me DNS control, by default it can't provide anything outside of that; it still needs an external server to resolve domains. Using unbound ensures that the service is officially mine.
        </p>
        <p style="padding-left: 1px; width: 220%; padding-top: 12px;">
         Using Unbound grants my network with:
@@ -488,8 +488,8 @@ over SSH.
        </h3>
       </div>
       <p>
-       I wanted to take advantage of git when I initially began this project. I thought it would be interesting to try and keep my configurations &amp; home lab services
-kept synced through an open-source repository, albeit while keeping privacy &amp; not leaking sensitive info. (Because of this, the majority of them remain private)
+       I wanted to take advantage of git when I initially began this project. I thought it would make sense to try and make my configurations &amp; home lab services
+	kept synced through an open-source repository, albeit while maintaining privacy &amp; not leaking sensitive info (Because of this, the majority of them remain private). This also allows me to share these projects publicly & open for use. 
       </p>
       <p>
        This is why I now have this repo:
