@@ -14,31 +14,32 @@
       line-height: 1.5;
       margin: 0;
       padding: 20px;
-      color: #333;
-      background-image: url('/assets/static/bg3.png');
+      color: #e7e7e7;
+      background-image: url('/assets/static/bg2.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      background-color: #151515;
     }
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(45, 45, 45, 0.75);
       border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
       overflow: hidden;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       padding: 20px;
     }
     .header {
       padding: 15px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     h1 {
       font-size: 24px;
       margin: 0;
       font-weight: 500;
-      color: #333;
+      color: #f0f0f0;
     }
     table {
       width: 100%;
@@ -47,33 +48,34 @@
     th {
       text-align: left;
       padding: 12px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       font-weight: 500;
-      color: #333;
-      background-color: rgba(255, 255, 255, 0.5);
+      color: #e6e6e6;
+      background-color: rgba(255,255,255,0.08);
     }
     td {
       padding: 12px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      background-color: rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background-color: rgba(255,255,255,0.045);
+      color: #dbdbdb;
     }
     tr:hover {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255,255,255,0.11);
     }
     a {
-      color: #0366d6;
+      color: #c8c8c8;
       text-decoration: none;
     }
     a:hover {
       text-decoration: underline;
     }
     .file-icon {
-      color: #8e8e93;
+      color: #bbb;
       font-size: 16px;
       margin-right: 5px;
     }
     .folder-icon {
-      color: #0366d6;
+      color: #8ab4f8;
       font-size: 16px;
       margin-right: 5px;
     }
@@ -87,9 +89,24 @@
     }
     .footer {
       padding: 10px 20px;
-      color: #6e6e6e;
+      color: #a2a2a2;
       font-size: 12px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(255,255,255,0.09);
+    }
+
+    tbody.dropdown {
+      display: none;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        max-height 0.3s ease;
+    }
+    tbody.dropdown.open {
+      display: table-row-group;
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -101,42 +118,52 @@
       <thead>
         <tr><th style="width: 60%">Filename</th><th style="width: 15%">Size</th><th style="width: 25%">Date</th></tr>
       </thead>
+
       <tbody>
         <tr><td><a href="../" class="parent"><span class="folder-icon">📁</span> ..</a></td><td>-</td><td>-</td></tr>
         <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('networking-dropdown', 'networking-icon')"><span class="folder-icon" id="networking-icon">📁</span> Projects</a></td><td>-</td><td>-</td></tr>
       </tbody>
-      <tbody id="networking-dropdown" style="display: none;">
+
+      <tbody id="networking-dropdown" class="dropdown">
         <tr><td class="indent"><a href="DNS.html"><span class="file-icon">📄</span> Building a Self-Hosted DNS Server To Streamline My Workflow</a></td><td>24 KB</td><td>22-Sep-2025</td></tr>
         <tr><td class="indent"><a href="Dotfiles.html"><span class="file-icon">📄</span> Automating my Linux Environment (Dotfiles + Install Script)</a></td><td>7 KB</td><td>15-Jul-2025</td></tr>
         <tr><td class="indent"><a href="../placeholder/"><span class="file-icon">📄</span> Korean-CLI Showcase + Release</a></td><td>-</td><td>-</td></tr>
-        <tr><td class="indent"><a href="Future.html"><span class="file-icon">📄</span>&nbsp;☕︎ 「 Current Projects & Future Plans 」 </a></td><td>3 KB</td><td>N/A</td></tr>
+        <tr><td class="indent"><a href="Future.html"><span class="file-icon">📄</span> ☕︎ 「 Current Projects & Future Plans 」</a></td><td>3 KB</td><td>N/A</td></tr>
       </tbody>
+
       <tbody>
         <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('tech-dropdown', 'tech-icon')"><span class="folder-icon" id="tech-icon">📁</span> Writeups</a></td><td>-</td><td>-</td></tr>
       </tbody>
-      <tbody id="tech-dropdown" style="display: none;">
+
+      <tbody id="tech-dropdown" class="dropdown">
         <tr><td class="indent"><a href="Subnetting.html"><span class="file-icon">📄</span> A Practical Subnetting Guide</a></td><td>38 KB</td><td>28-Aug-2025</td></tr>
-        <tr><td class="indent"><a href="902kc.html"><span class="file-icon">📄</span> Kyocera 902KC Setup Guide</a></td><td>28 KB</td><td>08-Sep-2025 </td></tr>
+        <tr><td class="indent"><a href="902kc.html"><span class="file-icon">📄</span> Kyocera 902KC Setup Guide</a></td><td>28 KB</td><td>08-Sep-2025</td></tr>
         <tr><td class="indent"><a href="Workflow.html"><span class="file-icon">📄</span> My Productivity Workflow + Home Lab Workflow</a></td><td>17 KB</td><td>23-Sep-2025</td></tr>
       </tbody>
+
       <tbody>
         <tr><td><a href="javascript:void(0);" class="parent" onclick="toggleDropdown('personal-dropdown', 'personal-icon')"><span class="folder-icon" id="personal-icon">📁</span> Personal</a></td><td>-</td><td>-</td></tr>
       </tbody>
-      <tbody id="personal-dropdown" style="display: none;">
+
+      <tbody id="personal-dropdown" class="dropdown">
         <tr><td class="indent"><a href="Photos.html"><span class="file-icon">📄</span> Photos</a></td><td>4 KB</td><td>28-Jul-2025</td></tr>
         <tr><td class="indent"><a href="https://roman-xo.github.io/firefox-start-page/"><span class="file-icon">📄</span> Firefox Splash Screen</a></td><td>4 KB</td><td>08-Aug-2025</td></tr>
       </tbody>
+
     </table>
+
     <div class="footer">generated by roman | last updated: 23-Sep-2025</div>
   </div>
+
   <script>
     function toggleDropdown(id, iconId) {
       const dropdown = document.getElementById(id);
       const icon = document.getElementById(iconId);
-      const isOpen = dropdown.style.display === 'table-row-group';
-      dropdown.style.display = isOpen ? 'none' : 'table-row-group';
+      const isOpen = dropdown.classList.contains('open');
+      dropdown.classList.toggle('open', !isOpen);
       icon.textContent = isOpen ? '📁' : '📂';
     }
   </script>
+
 </body>
 </html>
