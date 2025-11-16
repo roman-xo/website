@@ -1,0 +1,177 @@
+<        background-image: url('https://i.imgur.com/mhOtSUK.png');
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Links - Roman Todd</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'Geist Mono', monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .mobile-img {
+      display: block;
+    }
+
+    .desktop-img {
+      display: none;
+    }
+
+    @media (min-width: 500px) {
+      body {
+        justify-content: center;
+      }
+
+      .profile-container {
+        margin-top: 0;
+      }
+
+      .mobile-img {
+        display: none;
+      }
+
+      .desktop-img {
+        display: block;
+      }
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      margin-left: 5px;
+      background-image: url('./assets/static/links-frame.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .name {
+      color: #757575;
+      font-size: 1.7rem;
+      margin: 0;
+      font-style: italic;
+      padding-left: 10px;
+      text-align: center;
+    }
+
+    .korean-name {
+      color: #757575;
+      font-size: 1.3rem;
+      font-style: italic;
+      margin: 5px 0 10px 0;
+      position: relative;
+      left: -2px;
+      text-align: center;
+    }
+
+    .links {
+      width: 200%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 15px;
+      position: relative;
+      margin-left: -110px;
+    }
+
+    .link-item {
+      background: white;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      font-size: 1.1rem;
+      border: 1px solid #e0e0e0;
+    }
+
+    .link-item:hover {
+      background: #eaeaea;
+    }
+
+    .page-wrapper {
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeSlide 1s ease forwards;
+    }
+
+    @keyframes fadeSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .page-wrapper {
+        transform: scale(0.85);
+        margin-top: 110px;
+        transform-origin: top center;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body {
+        transform: scale(0.90);
+        margin-top: 110px;
+        transform-origin: top center;
+      }
+    }
+
+    .ascii-smile {
+      color: #757575;
+      font-style: italic;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-top: 5px;
+      position: relative;
+      left: 2px;
+    }
+  </style>
+</head>
+
+<body style="background-image: url('./assets/static/links.jpeg');">
+  <div class="page-wrapper">
+
+    <div class="profile-container">
+      <div class="profile-pic"></div>
+      <h1 class="name">Roman Todd ︎</h1>
+      <h2 class="korean-name">「 로만 」</h2>
+    </div>
+
+    <div class="links">
+      <a href="https://rjtodd.org/" class="link-item">website</a>
+      <a href="https://www.youtube.com/@romxn4k/" class="link-item">youtube</a>
+      <a href="https://rjtodd.org/contact/" class="link-item">contact</a>
+    </div>
+
+    <p class="ascii-smile">take care. 🐱</p>
+
+  </div>
+</body>
+</html>
