@@ -98,18 +98,30 @@
     }
 
     .link-item {
-      background: white;
+      position: relative;
+      background: #2e2e2e;
+      color: #f0f0f0;
       padding: 14px;
       border-radius: 10px;
-      text-align: center;
-      text-decoration: none;
-      color: #333;
+      border: 1px solid #444;
       font-size: 1.1rem;
-      border: 1px solid #e0e0e0;
+      text-decoration: none;
+      display: block;
+      text-align: center;
     }
 
-    .link-item:hover {
-      background: #eaeaea;
+    .link-item span {
+      display: inline-block;
+    }
+
+    .link-item .icon {
+      position: absolute;
+      left: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
     }
 
     .page-wrapper {
@@ -135,7 +147,7 @@
 
     @media (max-width: 500px) {
       body {
-        transform: scale(0.90);
+        transform: scale(0.9);
         margin-top: 40px;
         transform-origin: top center;
       }
@@ -148,12 +160,12 @@
       text-align: center;
       margin-top: 5px;
       position: relative;
-      left: -0px;
+      left: 0;
     }
   </style>
 </head>
 
-<body style="background-image: url('/assets/static/links.jpeg');">
+<body style="background-image: url('../assets/static/links.jpeg');">
   <div class="page-wrapper">
 
     <div class="profile-container">
@@ -163,12 +175,23 @@
     </div>
 
     <div class="links">
-      <a href="https://rjtodd.org/" class="link-item">website</a>
-      <a href="https://www.youtube.com/@romxn4k/" class="link-item">youtube</a>
-      <a href="https://rjtodd.org/contact/" class="link-item">contact</a>
+      <a href="https://rjtodd.org/" class="link-item">
+        <img src="./favicon.ico" class="icon" alt="">
+        <span>website</span>
+      </a>
+
+      <a href="https://www.youtube.com/@romxn4k/" class="link-item">
+        <img src="/assets/static/youtube.svg" class="icon" alt="">
+        <span>youtube</span>
+      </a>
+
+      <a href="https://rjtodd.org/contact/" class="link-item">
+        <img src="/assets/static/mail.svg" class="icon" alt="">
+        <span>contact</span>
+      </a>
     </div>
 
-    <p class="ascii-smile">stay warm.</p>
+    <p class="ascii-smile">stay cozy.</p>
 
   </div>
 </body>
