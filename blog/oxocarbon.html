@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Doom Oxocarbon - Roman Todd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="../assets/css/oxocarbon.css" rel="stylesheet"/>
+</head>
+<body>
+  <header>
+    <div class="brand-column">
+      <a class="home-link" href="../">로만</a>
+      <button class="back-button" onclick="window.location.href='../blog'">blog</button>
+      <button class="back-button" onclick="window.location.href='../contact'">contact</button>
+    </div>
+  </header>
+
+  <div class="blog-wrapper">
+    <aside class="toc">
+      <h2 id="contents">Contents</h2>
+      <ol>
+        <li><a href="#intro">&nbsp;Motivation</a></li>
+        <li><a href="#installation">&nbsp;Installation</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <div class="blog-wrapper">
+    <div class="container">
+      <h1 class="main-heading">Doom-Oxocarbon: An Org-Mode-Focused Port of IBM Carbon</h1>
+
+      <div class="meta-bar">
+        <span class="post-date">- January 1, 2026</span>
+        <a class="repo-link" href="https://github.com/roman-xo/doom-oxocarbon" target="_blank" rel="noopener">→ View Repository</a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
+        <img src="../assets/images/blog/oxocarbon/img1.png" style="max-width: 100%; height: auto; margin-bottom: 0;" alt="Doom splash screen"/>
+        <div style="color: gray; font-size: 1rem; margin-top: 1rem; text-align: center; position: relative; left: -4px;">Doom Splash Screen</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
+        <img src="../assets/images/blog/oxocarbon/img3.png" style="max-width: 100%; height: auto; margin-bottom: 0;" alt="Example 1"/>
+        <div style="color: gray; font-size: 1rem; margin-top: 1rem; text-align: center; position: relative; left: -10px;">Example #1</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
+        <img src="../assets/images/blog/oxocarbon/img6.png" style="max-width: 100%; height: auto; margin-bottom: 0;" alt="Example 2"/>
+        <div style="color: gray; font-size: 1rem; margin-top: 1rem; text-align: center; position: relative; left: -10px;">Example #2</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
+        <img src="../assets/images/blog/oxocarbon/img4.png" style="max-width: 100%; height: auto; margin-bottom: 0;" alt="Example 3"/>
+        <div style="color: gray; font-size: 1rem; margin-top: 1rem; text-align: center; position: relative; left: -10px;">Example #3</div>
+      </div>
+
+      <h2 id="intro">1 . Motivation</h2>
+      <p>For those that are unfamiliar, I've been an Emacs power user for the past year. I've been rocking the <a href="https://i.imgur.com/u6MpFc5.jpeg">tokyo night</a> theme across my entire system since forever, until this last month when I wanted a change heading into the new year.</p>
+
+      <p>I was always a fan of the IBM carbon theme, originally inspired by <a href="https://www.reddit.com/media?url=https%3A%2F%2Fpreview.redd.it%2Fbspwm-simple-yet-comfy-v0-0hczc8z9culf1.png%3Fwidth%3D1080%26crop%3Dsmart%26auto%3Dwebp%26s%3Dccb025de3ed2748dae2f8bc5d069a93075422956">this</a> image. I searched for a good Emacs port & kept running into these issues:</p>
+
+      <ul class="bullet-list">
+        <li>The theme would break Doom's dashboard, with incorrect face definitions causing rendering issues on startup</li>
+        <li>Required manual overrides and ad-hoc fixes just to make it usable in my own daily workflow</li>
+        <li>Org-mode was poorly styled, with low-contrast headings, noisy emphasis, and unreadable source blocks</li>
+      </ul>
+
+      <p>So with some much needed tweaking, I created a version that's compatible with Doom Emacs, especially for people who use org-mode extensively.</p>
+
+      <p style="margin-top: 1.2rem;">The color scheme is now released, and can find the full theme <a href="https://github.com/roman-xo/doom-oxocarbon">here.</a></p>
+
+      <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
+
+      <h2 id="installation">2 . Installation</h2>
+
+      <h3 style="margin-top: 1.2rem; margin-bottom: 1.5rem; text-decoration: underline; text-underline-offset: 0.40em;">Doom Emacs:</h3>
+
+      <ol style="margin-left: 1.25rem; line-height: 1.6;">
+        <li>
+          Clone the repository:
+          <pre style="background: #0f0f0f; color: #ffffff; padding: 0.9rem 1rem; border-radius: 6px; overflow-x: auto; margin-top: 0.5rem; font-size: 0.95rem; white-space: pre;">git clone https://github.com/roman-xo/doom-oxocarbon ~/.config/doom/themes/doom-oxocarbon</pre>
+        </li>
+
+        <li style="padding-top: 1rem;">
+          Add the theme to your config.el:
+          <pre style="background: #0f0f0f; color: #ffffff; padding: 0.9rem 1rem; border-radius: 6px; overflow-x: auto; margin-top: 0.5rem; font-size: 0.95rem; white-space: pre;">(setq doom-theme 'doom-oxocarbon)</pre>
+        </li>
+
+        <li style="padding-top: 0.5rem;">
+          Ensure Doom knows where to find the theme:
+          <pre style="background: #0f0f0f; color: #ffffff; padding: 0.9rem 1rem; border-radius: 6px; overflow-x: auto; margin-top: 0.5rem; font-size: 0.95rem; white-space: pre;">(add-to-list 'custom-theme-load-path "~/.config/doom/themes/doom-oxocarbon")</pre>
+        </li>
+
+        <li style="padding-top: 0.5rem;">
+          Reload:
+          <pre style="background: #0f0f0f; color: #ffffff; padding: 0.9rem 1rem; border-radius: 6px; overflow-x: auto; margin-top: 0.5rem; font-size: 0.95rem; white-space: pre;">doom sync</pre>
+        </li>
+      </ol>
+
+      <hr style="margin: 2.5rem 0; opacity: 0.3;"/>
+
+      <h3 style="position: relative; top: -19px;">Softer Foreground</h3>
+      <p style="position: relative; top: -20px; line-height: 1.6;">By default, doom-oxocarbon uses a bright white foreground. If you prefer a softer appearance, you can override the default face in your Doom config:</p>
+
+      <pre style="background: #0f0f0f; color: #ffffff; padding: 0.9rem 1rem; border-radius: 6px; overflow-x: auto; margin-top: 0.75rem; font-size: 0.95rem; white-space: pre; position: relative; top: -15px;">(after! doom-themes
+  (custom-set-faces!
+   '(default :foreground "#bbc2cf")))</pre>
+
+      <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;"/>
+
+      <div style="text-align: center;">
+        <p class="signature">Roman Todd &nbsp;&nbsp;— &nbsp;&nbsp;01-01-26</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
