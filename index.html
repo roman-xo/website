@@ -79,23 +79,29 @@
       color: #B38AFF;
     }
 
-    .github-icon a:hover::before,
-    .github-icon a:hover::after {
+    .social-icons a:hover::before,
+    .social-icons a:hover::after {
       content: none !important;
     }
 
-    .github-icon {
-      margin-top: 20px;
+    .social-icons {
+      margin-top: 14px;
+      display: flex;
+      gap: 0px;
+      justify-content: center;
+      align-items: center;
+      width: 130px;
     }
 
-    .github-icon img {
+    .social-icons img {
       width: 40px;
       height: 40px;
-      transition: transform 0.2s ease-in-out;
+      transition: filter 0.2s ease-in-out;
+      filter: brightness(0) invert(1);
     }
 
-    .github-icon img:hover {
-      transform: scale(1.1);
+    .social-icons img:hover {
+      filter: brightness(0.25);
     }
 
     @media (max-width: 800px) {
@@ -148,11 +154,13 @@
         padding: 0 2rem;
       }
 
-      .github-icon {
+      .social-icons {
         margin-top: 0.5rem;
+        width: 100px;
+        gap: 0px;
       }
 
-      .github-icon img {
+      .social-icons img {
         width: 34px;
         height: 34px;
       }
@@ -200,9 +208,12 @@
     <a href="./res/cv_en_roman.pdf">resume</a>
     <a href="./blog">blog</a>
     <a href="./contact" onclick="openContactPopup()">contact</a>
-    <div class="github-icon">
+    <div class="social-icons">
       <a href="https://github.com/roman-xo" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png" alt="GitHub">
+      </a>
+      <a href="https://linkedin.com/in/rjtodd" target="_blank">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/linkedin-app-white-icon.png" alt="LinkedIn">
       </a>
     </div>
   </div>
