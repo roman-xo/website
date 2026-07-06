@@ -19,5 +19,5 @@ python3 -m http.server 8000
 Open any browser and navigate to:
 http://localhost:8000
 
-additional info can be found at --> https://rjtodd.org/blog/Future.html
+additional info can be found at https://rjtodd.org/blog/Future.html
 
