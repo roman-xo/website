@@ -1,12 +1,12 @@
 # website
 source code for my site, hosted at -> https://rjtodd.org
 
-## What's included/priorities
+## What's included
 
-- my blog
 - my resume
+- my blog
 - built-in contact form with backend email delivery
-- cool photos
+- hyperlinks, cool photos, and easter eggs
 
 ## To use locally
 
