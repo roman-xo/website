@@ -112,34 +112,33 @@
      1 . Context
     </h2>
     <p>
-     Whenever I was first building my personal home network infrastructure, my top priority was to implement as many enterprise-grade switching and routing practices that I knew I could, while still maintaining the most practical
-utility within my home environment. What struck me as being the most important in this endeavor were two things:
+      When I began building my home lab, I was less interested in creating the largest or most elaborate setup possible than I was in building something I would genuinely use. I wanted the lab to remain simple, inexpensive, and purposeful, with each component supporting my daily workflow & understanding of networking.
     </p>
+    <p>
+      This led me to prioritize two goals:
+      </p>
     <ul class="bullet-list">
      <li>
-      Maximizing overall productivity by implementing network practices that directly supported my workflow and contributed towards daily use.
+       Applying networking concepts through services that provide a practical day-to-day value.
      </li>
      <div style="padding-top: 10px;">
       <li>
-       Preserving privacy by reducing total reliance on external services.
+        Self-hosting those services where doing so gives me greater privacy, control, and flexibility.
       </li>
      </div>
     </ul>
     <p>
-    it was from this mindset that I came to realize DNS is both a simple, but immensely powerful protocol that can be expanded to support both of these priorities directly, in ways one might not initially think of. I wanted to create this post to share this mentality & show its application in home labbing.
+It was from this mindset that I came to realize DNS is both a simple, but immensely powerful protocol that could support both goals in ways I had not initially considered. Beyond standard ad and domain filtering, I found a way for it to be adapted and automated around my own workflow.
     </p>
     <p>
-     This post aims to demonstrate how DNS functions in my own home lab &amp; how it can be setup and automated as a tool that can be used daily to enhance and contribute towards productivity habits.
-    </p>
+      This post aims to demonstrate how DNS functions in my own home lab & how it can be setup and automated as a tool that can be used daily to enhance and contribute towards productivity habits.
+      </p>
     <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"/>
     <h2 id="2--network">
      2 . Network
     </h2>
     <p>
-     The main fabric of this project is my home network infrastructure, which I'm constantly designing and tinkering with to keep its utility while still allowing me to experiment with different networking practices and be used for studying.
-    </p>
-    <p>
-     Since this is still a relatively new home lab, the layout is intentionally simple but structured in a way that can scale as I expand it.
+      This project is built on my home network, which serves both as functional infrastructure and as an environment for hands-on networking practice. I regularly adjust its design as I experiment with new concepts, but aim to keep the overall setup simple, reliable, and useful in my daily life.
     </p>
     <div style="padding-top: 0.3rem;">
      <h3 class="lined" id="components">
@@ -159,7 +158,7 @@ utility within my home environment. What struck me as being the most important i
        </div>
        <ul class="detail-list" style="margin-top: 0px;">
         <li>
-         Provides VLAN segmentation &amp; inter-VLAN routing
+         Provides VLAN segmentation &amp; Inter-VLAN routing
         </li>
         <li>
          Handles DHCP relay, QoS, and ACLs to keep management and client traffic separate
@@ -183,13 +182,13 @@ utility within my home environment. What struck me as being the most important i
        </div>
        <ul class="detail-list" style="margin-top: 0px;">
         <li>
-         Hosts a self-hosted media server stack
+            Locally hosts a self-hosted media server
          <a href="https://github.com/jellyfin/jellyfin">
           (Jellyfin)
          </a>
         </li>
         <li>
-         Provides centralized storage for personal files
+         Provides centralized storage for personal files + media
         </li>
         <li>
          Accessible via SFTP for file transfers
@@ -305,11 +304,11 @@ utility within my home environment. What struck me as being the most important i
         </li>
        </ul>
       </li>
-      <div style="padding-top: 0.1rem;">
+      <div style="padding-top: 0.01rem;">
        <p>
-        For more specific details regarding how I make use of all of these services, I have a post
+        For more specific details regarding how I make use of these services in my workflow, I have a post
         <a href="./Workflow.html">here</a>
-        detailing how I've integrated my lab components into my workflow.
+        detailing how I have them integrated.
        </p>
       </div>
      </ul>
@@ -336,10 +335,10 @@ utility within my home environment. What struck me as being the most important i
          Block proprietary trackers &amp; telemetry on home smart TVs.
         </li>
         <li>
-         Centralized DNS monitoring by logging queries &amp; creating statistics.
+         Centralized DNS monitoring by logging queries &amp; generating associated statistics.
         </li>
         <li>
-         Can be used as a DHCP server, dynamically asigning DNS.
+         Can be used as a DHCP server, dynamically assigning DNS.
         </li>
        </div>
       </ul>
@@ -370,12 +369,12 @@ utility within my home environment. What struck me as being the most important i
         <a href="https://nlnetlabs.nl/projects/unbound/about/">
          Unbound
         </a>
-        —a recursive, caching DNS resolver. Using Unbound allows my setup to query root DNS servers directly, instead of forwarding requests to Google or any other upstream providers.
+        - a recursive, caching DNS resolver. Using Unbound allows my setup to query root DNS servers directly, instead of forwarding requests to external upstream providers.
        </p>
        <p style="padding-left: 1px; width: 220%;">
-        While Pi-hole alone grants me DNS control, by default it can't provide anything outside of that; it still needs an external server to resolve domains. Using unbound ensures that the service is officially mine.
+While Pi-hole provides control over DNS filtering, it still relies on an external upstream resolver by default. Using Unbound allows me to resolve queries recursively within my own infrastructure, giving me greater control over the complete DNS-resolution process.
        </p>
-       <p style="padding-left: 1px; width: 220%; padding-top: 12px;">
+       <p style="padding-left: 1px; width: 220%; padding-top: 6px;">
         Using Unbound grants my network with:
        </p>
        <ul class="detail-list">
@@ -397,7 +396,7 @@ utility within my home environment. What struck me as being the most important i
        <img src="../assets/images/blog/dns/img3.png" style="max-width: 100%;"/>
        <div class="caption">
         <p style="position: relative; top: -28px; left: 28px; font-size: 1rem;">
-         Unbound uses loopback (127.0.0.1#5335)
+         Pi-Hole uses loopback (127.0.0.1#5335)
         </p>
         <p style="position: relative; top: -37px; left: -24px; font-size: 1rem; width: 220%">
          This forwards all queries to unbound running on localhost
@@ -410,38 +409,37 @@ utility within my home environment. What struck me as being the most important i
        3.2 Workflow / DNS Segmentation
       </h3>
       <p>
-       This was what gave me the initial spark to use Pi-Hole—as it lets me tailor my blacklists according to what I'm doing, focused on, &amp; grants me the ability to automate them according to custom rules as well.
-      </p>
-      <p>
-       These are my custom groups:
+       The ability to create different filtering policies was what initially drew me to Pi-hole. Rather than applying the same blocklist at all times, I can tailor DNS filtering to whatever I am doing and automate when each policy takes effect.
+
+ I currently use the following groups:
       </p>
       <ul class="detail-list">
        <li>
         <b>
          Work
         </b>
-        - Blocks distracting sites &amp; made to enforce that I stay on task throughout the day
+- Blocks distracting websites to help me remain focused throughout the workday.
        </li>
        <li>
         <b>
          Study
         </b>
-        - Similar to Work, but tweaked independently according to what I'm focused on &amp; wanting to study
+ - Similar to Work, but maintained separately so its restrictions can be adjusted around what and how I am studying.
        </li>
        <li>
         <b>
          Leisure
         </b>
-        - Blacklists any sites that I don't want to spend my free-time on (Like work-related sites)
+        - Blocks sites I do not want occupying my free time, including both work-related resources and platforms that encourage passive consumption.
        </li>
        <li>
         <b>
          Baseline
         </b>
-        - Always on. Provides ad-blocking and privacy protection. I have 600,000+ domains blocked currently
+ - Always active. Provides general advertisement, tracking, and malicious-domain filtering using maintained public blocklists. (As of 9-22-2025: there are 800,000+ domains blocked)
        </li>
        <li>
-        Unrestricted (Rarely used)
+        Unrestricted - Disables all restrictions. (Rarely used)
        </li>
       </ul>
      </div>
@@ -453,19 +451,19 @@ utility within my home environment. What struck me as being the most important i
        To streamline management, I developed a set of custom shell scripts that sit on the Pi-hole server &amp; client-side scripts that stay synced to my Linux devices. They are configured to be executed
 over SSH.
       </p>
-      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+      <p style="text-align: left; font-style: normal; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
        Workflow selection script
       </p>
       <div class="centered-image">
        <img alt="Workflow Filtering" src="../assets/images/blog/dns/img4.png"/>
       </div>
-      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+      <p style="text-align: left; font-style: normal; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
        Updater script interface
       </p>
       <div class="centered-image">
        <img alt="Updater Script" src="../assets/images/blog/dns/img5.png"/>
       </div>
-      <p style="text-align: left; font-style: italic; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
+      <p style="text-align: left; font-style: normal; font-weight: bold; position: relative; top: 15px; font-size: 1.3rem;">
        DNS statistics checker
       </p>
       <div class="centered-image">
@@ -478,7 +476,7 @@ over SSH.
        </a>
       </p>
       <p>
-       These allow me to not need to jump between devices constantly &amp; perform maintenance tasks on Pi-hole straight from SSH.
+       These allow me to not need to jump between devices constantly &amp; let me perform maintenance tasks on Pi-hole remotely.
       </p>
       <div style="padding-top: 1rem;">
        <h3 id="34-repository-overview">
@@ -488,19 +486,15 @@ over SSH.
        </h3>
       </div>
       <p>
-       I wanted to take advantage of git when I initially began this project. I thought it would make sense to try and keep my configurations &amp; home lab services
-	synced through an open-source repository, albeit while remaining privacy-oriented, and without leaking sensitive info (Because of this, a majority of my repositories remain private). This also lets me keep these projects publicly open for use as I tweak & refine them. 
+I began using Git early in this project to version my scripts and configuration files, synchronize them across devices, and keep a record of changes as the DNS stack evolved.
       </p>
-      <p>
-       This is why I now have this repo:
-       <a href="https://github.com/roman-xo/roman-dns-stack/">
-        roman-dns-stack
-       </a>
-      </p>
+<p>
+  Because home-lab configurations can often contain sensitive info, I only publish files that I know are safe to share. Because of this, most of my broader home-lab repositories remain private, but the reusable parts of this project are available publicly in the  <a href="https://github.com/roman-xo/roman-dns-stack/">roman-dns-stack</a> repository. This allows others to adapt the project for their own environments while I continue refining it.
+  </p>
       <p>
        The repo contains all of my scripts, blocklists, unbound, some screenshots and a few txt &amp; markdown documents.
       </p>
-      <p style="color: gray; padding-top: 5px; font-style: italic; font-weight: bold;">
+      <p style="color: gray; padding-top: 5px; font-style: normal; font-weight: bold;">
        Example - baseline.txt
       </p>
       <div id="txt-container" style="border:1px solid #ccc; border-radius:8px; padding:10px; 
@@ -527,66 +521,57 @@ over SSH.
       4 . How This Effects My Life
      </h2>
      <p>
-      Now that I've explained the technical related aspects, I'd like to go over &amp; explain how this setup particularly plays into my workflow and has helped in supporting
-what I've needed it to do.
-     </p>
-     <p>
-      I'll have a
-      <i>
-       much
-      </i>
-      more detailed explanation in my
-      <a href="../placeholder/">
-       Productivity Workflow + Home Lab
-      </a>
-      post explaining how the services in my home lab function in their entirety, but I'll take the time to focus strictly on DNS as it pertains to this post.
+       Now that I have covered the project’s technical implementation, I want to explain how it fits into my daily workflow and the practical benefits it provides.
      </p>
      <div style="padding-top: 1rem;">
       <h3 id="41-staying-on-task-(why-do-this-anyways?)">
-       4.1 Staying On Task (Why do this anyways?)
+       4.1 Staying On Task
       </h3>
       <p>
        Before every work session, I make sure that I run my
        <code>workflow</code>
        script to set my group to "Work" along with
        <code>pacman -Syu</code>
-       to synchronize my arch packages. I can then use
+       to synchronize my linux packages. I can then use
        <code>piholeupdate</code>
-       to sync my pihole settings (officially applying them) and start the session.
+       to sync my pihole settings (officially applying the settings) and start the session.
       </p>
       <p>
-       Whenever I'm in this mode, the process is pretty self-explanatory: Anytime I'm distracted, I'm quickly reminded of the restrictions I put in place, and can't access any distracting sites.
+       Whenever I'm in this mode, the process is pretty self-explanatory: Anytime I'm distracted, I'm quickly confronted with the restrictions I put in place, and can't access any distracting sites.
       </p>
       <p>
-       This helps not only with not using blacklisted sites but also enforces:
+       This helps not only with not using the blacklisted sites but also enforces:
       </p>
       <ul class="detail-list">
        <li>
-        Not falling into algorithmic pipelines &amp; feedback loops, even if I'm using said site for one singular purpose.
+        Not falling into algorithmic pipelines &amp; feedback loops, even if I'm using said site for a singular purpose.
        </li>
        <li>
         Forces me into starting work faster &amp; getting into flow as soon as I begin.
        </li>
       </ul>
       <p>
-       Another particularly unique part about this setup is the advantage of being able to implement some of the standard features of already existing programs like <i>Cold Turkey</i> (a website blocker for productivity) integrated into my very network infrastructure. This keeps my tools self-hosted and allows them to blends seamlessly into other DNS & network rules. An interesting aspect to this is it grants me the ability to use:
+       Another particularly unique part about this setup is the advantage of being able to implement some of the standard features of already existing programs like <i>Cold Turkey</i> (a website blocker for productivity) integrated into my very network infrastructure. Keeping the system self-hosted allows its filtering policies to work alongside my existing DNS, VLAN, and firewall configuration while remaining independent of a particular operating system or subscription service.
       </p>
+      <p>
+        It also gives me opportunities to experiment with related technologies and configurations:
+        </p>
       <ul class="detail-list">
        <li>
-        Cron jobs - Schedule times of the day to perform functions
+         Scheduled automation — Cron jobs can activate filtering policies at specific times.
        </li>
        <li>
-	Platform agnostic - I can use my server on any device regardless of OS
+Platform-independent filtering — DNS policies can apply to any connected device, regardless of its operating system.
        </li>
        <li>
-        Use VLANs to isolate devices with custom rules
+VLAN-based policies — Devices can be separated and assigned rules appropriate to their purpose.
        </li>
        <li>
-        Block traffic by port &amp; protocol - target apps that use nonstandard domains like Discord
+    Port and protocol filtering — Firewall rules and ACLs can supplement DNS filtering for applications that cannot be managed reliably through domain-based rules alone.
        </li>
       </ul>
       <p>
-       Because I can segment traffic as well, this allows for extendable network experimentation & means my setup won't get in the way of other clients and users on the network. It transforms it into an engaging way to learn home labbing &amp; apply my networking knowledge to minimize relying on external programs. It also helps to not be tied to things like subscriptions.
+       VLAN segmentation prevents my personal filtering policies from interfering with other users or clients on the network. More broadly, the project gives me a practical environment in which to apply my networking knowledge while reducing my reliance on proprietary applications and subscription-based services.
       </p>
      </div>
      <div style="padding-top: 1rem;">
@@ -602,24 +587,24 @@ what I've needed it to do.
        <b>
         high-quality leisure:
        </b>
-        activities that are satisfying, mentally engaging, and valuable to your life. He contrasts high quality leisure with digital activities that shorten your attention and encourage passive consumption (like: doomscrolling).
+activities that are satisfying, mentally engaging, and personally meaningful. He contrasts these with lower-quality digital activities that encourage passive consumption and fragment our attention (IE: doomscrolling).
       </p>
       <p>
        The goal in achieving high-quality-leisure is pretty simple: to reclaim time, attention, and mental energy within our free time—and create space for more fulfilling and purposeful experiences.
       </p>
       <p>
-       This was the motivation behind my "Leisure" blocklist. Rather than being outright unrestricted during my free-time, I can in the same way as Work &amp; Study, "force" myself to immediately have the focus of high-quality-leisure in mind, and to not accidentally let my mind slip into work mode nor spend my free-time doomscrolling.
+       This was the motivation behind my "Leisure" blocklist. Rather than removing every restriction outside of work or study, Leisure mode blocks platforms that I do not want occupying my free time. It also limits access to work-related sites, helping me avoid slipping back into work mode when I intend to rest. The goal is not to make every moment productive, but to make my leisure more intentional.
       </p>
       <p>
        This plays into why I decided to start using Jellyfin + Kodi as well. Not only is it a highly customizable ecosystem that can be catered towards my preferences and experience, but allows me to jump right into whatever content, movies, and TV shows I'd like to enjoy without ads &amp; being connected to the internet.
       </p>
       <p>
-       Additionally, I've got into the habit of writing notes and journaling themes, quotes, 
-etc that I've extracted while watching new movies or TV shows. I also write down sentences &amp; timestamps for learning new words in foreign languages through
+       Additionally, I've recently developed a  habit of writing notes, journaling themes, quotes,
+etc. that I've extracted while watching new movies or TV shows. I also write down sentences &amp; timestamps for learning new words in foreign languages through
        <a href="https://i.imgur.com/SiJNsEc.png">
         sentence mining
        </a>
-       . This approach has brought watching media in a useful and engaging way to another level.
+       . These practices have made watching media more attentive and engaging without turning it into another form of work.
       </p>
      </div>
      <div style="padding-top: 1rem;">
@@ -627,12 +612,14 @@ etc that I've extracted while watching new movies or TV shows. I also write down
        4.3 Conclusion
       </h3>
       <p>
-       This project was a simple, neat &amp; fun way to try and make use of scripting, networking &amp; DNS in day-to-day life. This is also the first blog post I've written where I detail my home lab. If you want to learn more about how my home lab works with my daily routine, I plan to go into further detail <a href="./Workflow.html">here.</a> If you took the time to read/and or learned anything useful, thank you!
+      This project has been a simple and enjoyable way to apply scripting, networking, and DNS to my daily life. It is also my first blog post documenting part of my home lab. If you would like to learn more about how the rest of my lab supports my daily routine, I plan to explore it in greater detail <a href="rjtodd.org">here</a>.
+
+If you took the time to read this or learned something useful from it, thank you!
       </p>
       <hr style="border: none; height: 1px; background-color: gray; margin: 20px 0;"/>
       <div style="text-align: center;">
        <p class="signature">
-        Roman Todd   —   09-22-25
+        Roman Todd   -   09-22-25
        </p>
       </div>
      </div>

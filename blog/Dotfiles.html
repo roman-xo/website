@@ -28,16 +28,16 @@
 
     <h2>What is BSPWM?</h2>
     <p>BSPWM (Binary Space Partitioning Window Manager) is a tiling window manager that organizes windows using a binary space partitioning tree. This means it recursively splits your screen into non-overlapping regions, allowing for efficient and dynamic window layouts.</p>
-    <p>Unlike many window managers, BSPWM does not handle input (keybindings or mouse events) directly—instead, it works alongside <code>sxhkd</code> (Simple X Hotkey Daemon) for hotkey management.</p>
+    <p>Unlike a lot of other window managers, BSPWM does not handle input (keybindings or mouse events) directly. Instead, it works alongside <code>sxhkd</code> (Simple X Hotkey Daemon) for hotkey management.</p>
     <p>Configuration is done entirely through plain text and shell scripts, giving users full control over how their system behaves. BSPWM is lightweight, fast, and designed for users who prefer a keyboard-driven workflow and a highly customizable and minimalist linux environment.</p>
     <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;">
     <div style="padding-top: 0px;">
     <h2> Why I Made This Script</h2>
-    <p>When I first migrated to BSPWM, my journey with linux up until that point had been rapid. I had gone from Ubuntu --> Arch KDE --> Arch BSPWM within the span of around 3 months of solely learning and using linux, and felt prepared to try and make the leap to the most minimal DE that I could.</p>
-    <p>At the time, there weren't many resources focused specifically on BSPWM, so most of the configuration and learning process was purely trial and error, and once I had got the initial installation process down, I wanted to implement the same setup I created consistently across my devices.</p>
-    <p>The problem? Going through and reconfiguring everything from scratch each time was going to be extremely tedious and time-consuming. So, I developed this install script—a personal solution to automate my environment to any machine and keep it always synced through a public repository to pull from. This also streamlines & simplifies future reinstallations of my environment.</p>
-    <p>While not intended to be an overly complex or refined script, It was tailored to fit my use case and maximize efficiency for a base arch environment installation. The aim in creating this post is to publish my dotfiles to the public, and to help out people in my life who are interested in trying out my setup for themselves. The rest of this post will be essentially a 1:1 to my github repository.</p>
- <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;"> 
+    <p> My transition to BSPWM happened fairly early in my experience with Linux. Within around three months, I had moved from Ubuntu to Arch Linux with KDE, and eventually to Arch with BSPWM as I became interested in building a smaller and more personalized desktop environment. </p>
+    <p> Most of the setup process involved experimentation as I learned how BSPWM and the surrounding tools fit together. Once I had created an environment I was comfortable using, I wanted a reliable way to reproduce it across my devices without manually reconfiguring everything after each installation. </p>
+    <p> I created this install script to automate that process. It installs and configures the main components of my environment, pulls my dotfiles from a public repository, and makes future installations faster and more consistent. </p>
+    <p> This project gives me a configuration I am finally satisfied with and a reliable way to maintain it going forward. I can continue refining my dotfiles, keep them synchronized across my devices through the repo+script, and publicly release the setup for others to use or adapt. The rest of this post provides an overview of the project and expands upon the information in its <code>README.md</code>. </p>
+ <hr style="border: none; height: 1px; background-color: gray; margin: 25px 0;">
 
  </div>
 </div>
@@ -92,7 +92,7 @@ cd ~/dotfiles
 chmod +x install.sh
 ./install.sh
 </code></pre>
-        <p><em>Best run from a TTY session.</em></p>
+        <p><em>Best ran from a TTY session.</em></p>
       </details>
 
       <details open>
@@ -126,7 +126,7 @@ chmod +x install.sh
       <h1> ‣ &nbsp;Additional Notes</h1>
       <ul class="bullet-list tall-lines">
         <li>
-          You can enable window animations with picom, simply add the following line in <code>~/.config/picom/picom.conf</code>:
+          You can enable window animations with picom, simply add the following line in  <code>   ~/.config/ </code> <code>picom/picom.conf</code>:
           <div style="padding-top: 10px;">  
 	<pre>@include "picom-animations.conf"</pre>
         </li>
@@ -155,7 +155,7 @@ chmod +x install.sh
        <div style="text-align: center;">
         <hr style="border: none; height: 1px; background-color: gray; width: 60%; margin: 1.4rem auto;">
 	<p class="signature">
-         Roman Todd   —   07-15-25
+         Roman Todd   -   07-15-25
 </footer>
 </div>
 </div>
